@@ -6,6 +6,16 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Talal Abid Alharbi — IT &amp; Cybersecurity</title>
+<meta name="description" content="Talal Abid Alharbi — final-year IT Student at King Abdulaziz University specializing in Cybersecurity. CompTIA Security+ and eJPTv2 Certified." />
+<meta name="keywords" content="Talal Abid Alharbi, Cybersecurity, Portfolio, Penetration Testing, Ethical Hacking, CompTIA Security+, eJPT, KAU" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Talal Abid Alharbi — IT &amp; Cybersecurity Portfolio" />
+<meta property="og:description" content="Final-year IT Student specializing in Cybersecurity. CompTIA Security+ and eJPTv2 Certified. Check out PhishAware and other security work." />
+<meta property="og:image" content="Clean_Logo.png" />
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:title" content="Talal Abid Alharbi — IT &amp; Cybersecurity Portfolio" />
+<meta property="twitter:description" content="Final-year IT Student specializing in Cybersecurity. CompTIA Security+ and eJPTv2 Certified. Check out PhishAware and other security work." />
+<meta property="twitter:image" content="Clean_Logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&family=Tajawal:wght@300;400;500;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet"/>
@@ -773,6 +783,12 @@
   }
   footer span { color: var(--amber); }
 
+  .d-char {
+    color: var(--amber);
+    text-shadow: 0 0 6px rgba(200,133,42,0.6);
+    font-family: var(--font-mono);
+  }
+
   /* ── REVEAL ── */
   .reveal {
     opacity: 0;
@@ -1006,6 +1022,36 @@
   body[dir="rtl"] .nav-logo span,
   body[dir="rtl"] .terminal-titlebar { direction: ltr; text-align: left; font-family: var(--font-mono); }
 
+  .terminal-body {
+    max-height: 440px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+  }
+  
+  /* — Interactive Terminal — */
+  .terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    color: var(--cream);
+  }
+  .terminal-input-line .prompt {
+    color: var(--amber);
+    user-select: none;
+  }
+  #terminal-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--crema);
+    font-family: var(--font-mono);
+    font-size: 0.88rem;
+    flex-grow: 1;
+    caret-color: var(--amber);
+  }
+
   /* — Touch device: enable native cursor and pointer — */
   @media (hover: none) {
     body { cursor: auto; }
@@ -1030,17 +1076,17 @@
 
 <!-- ── NAV ── -->
 <nav id="navbar">
-  <a href="#hero" class="nav-brand">
+  <a href="#hero" class="nav-brand" id="nav-brand-logo">
     <div class="nav-shield" aria-hidden="true"></div>
     <div class="nav-logo"><span>~/</span><span data-i18n="navName">talal.sh</span></div>
   </a>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#about" data-i18n="navAbout">about</a></li>
-      <li><a href="#skills" data-i18n="navSkills">skills</a></li>
-      <li><a href="#certs" data-i18n="navCerts">certs</a></li>
-      <li><a href="#projects" data-i18n="navProjects">projects</a></li>
-      <li><a href="#contact" data-i18n="navContact">contact</a></li>
+      <li><a href="#about" data-i18n="navAbout" id="nav-link-about">about</a></li>
+      <li><a href="#skills" data-i18n="navSkills" id="nav-link-skills">skills</a></li>
+      <li><a href="#certs" data-i18n="navCerts" id="nav-link-certs">certs</a></li>
+      <li><a href="#projects" data-i18n="navProjects" id="nav-link-projects">projects</a></li>
+      <li><a href="#contact" data-i18n="navContact" id="nav-link-contact">contact</a></li>
     </ul>
     <button id="langToggle" class="lang-toggle" aria-label="Toggle language">
       <span class="globe" aria-hidden="true"></span>
@@ -1068,8 +1114,8 @@
       <span id="typewriter"></span><span class="cursor"></span>
     </div>
     <div class="hero-cta">
-      <a href="#projects" class="btn-primary" data-i18n="ctaPrimary">View Projects</a>
-      <a href="#contact" class="btn-ghost" data-i18n="ctaGhost">Get In Touch</a>
+      <a href="#projects" class="btn-primary" data-i18n="ctaPrimary" id="hero-cta-projects">View Projects</a>
+      <a href="#contact" class="btn-ghost" data-i18n="ctaGhost" id="hero-cta-contact">Get In Touch</a>
     </div>
   </div>
 
@@ -1192,7 +1238,7 @@
       <div class="cert-badge">CompTIA</div>
       <div class="cert-name">Security+</div>
       <div class="cert-issuer" data-i18n="certSecPlusIssuer">// CompTIA · Verified Credential</div>
-      <a href="https://www.credly.com/badges/9ed94faa-85a3-4cde-a06f-97a0560aa53f/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify">Verify Credential</a>
+      <a href="https://www.credly.com/badges/9ed94faa-85a3-4cde-a06f-97a0560aa53f/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-secplus">Verify Credential</a>
     </div>
     <div class="cert-card reveal">
       <div class="scanline"></div>
@@ -1200,7 +1246,7 @@
       <div class="cert-badge">eLearnSecurity</div>
       <div class="cert-name">eJPT v2</div>
       <div class="cert-issuer" data-i18n="certEjptIssuer">// eLearnSecurity · Junior Penetration Tester</div>
-      <a href="https://certs.ine.com/21e26cbc-af6d-4f20-82ec-ba81ac5b66f6#acc.ZirLg6fq" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify">Verify Credential</a>
+      <a href="https://certs.ine.com/21e26cbc-af6d-4f20-82ec-ba81ac5b66f6#acc.ZirLg6fq" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-ejpt">Verify Credential</a>
     </div>
   </div>
 
@@ -1284,7 +1330,7 @@
       <span class="tech-tag" data-i18n="techAwareness">Security Awareness</span>
     </div>
     <div style="margin-top: 2rem; display: inline-block;">
-      <a href="https://phishaware.me/" target="_blank" rel="noopener noreferrer" class="btn-primary" data-i18n="visitProject">Visit Project ↗</a>
+      <a href="https://phishaware.me/" target="_blank" rel="noopener noreferrer" class="btn-primary" data-i18n="visitProject" id="project-visit-phishaware">Visit Project ↗</a>
     </div>
   </div>
 </section>
@@ -1301,55 +1347,56 @@
       <div class="t-dot g"></div>
       <div class="terminal-filename">contact.sh — bash</div>
     </div>
-    <div class="terminal-body">
-      <div class="t-line">
+    <div class="terminal-body" style="position: relative;">
+      <div id="terminal-history">
+        <div class="t-line">
+          <span class="prompt">$</span>
+          <span class="cmd">whois</span>
+          <span class="val">talal.alharbi</span>
+        </div>
+        <div class="t-line" style="margin-top:0.5rem;">
+          <span class="prompt">&gt;</span>
+          <span class="comment" data-i18n="termComment1"># Final-year IT student | KAU | Cybersecurity</span>
+        </div>
+        <div class="t-line" style="margin-top: 1.25rem;">
+          <span class="prompt">$</span>
+          <span class="cmd">cat</span>
+          <span class="val">contact.txt</span>
+        </div>
+        <div class="t-line" style="margin-top: 0.25rem;">
+          <span class="prompt">&gt;</span>
+          <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">email</span>
+          <span class="val">
+            <a href="mailto:talalalharbi.jobs@gmail.com" class="val" id="term-link-email">talalalharbi.jobs@gmail.com</a>
+          </span>
+        </div>
+        <div class="t-line">
+          <span class="prompt">&gt;</span>
+          <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">linkedin</span>
+          <span class="val">
+            <a href="https://www.linkedin.com/in/talal-alharbi-b153aa370" class="val" target="_blank" rel="noopener noreferrer" id="term-link-linkedin">/in/talal-alharbi-b153aa370</a>
+          </span>
+        </div>
+        <div class="t-line">
+          <span class="prompt">&gt;</span>
+          <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">github</span>
+          <span class="val">
+            <a href="https://github.com/TalalAlha" class="val" target="_blank" rel="noopener noreferrer" id="term-link-github">@TalalAlha</a>
+          </span>
+        </div>
+        <div class="t-line" style="margin-top: 1.25rem;">
+          <span class="prompt">$</span>
+          <span class="cmd">echo</span>
+          <span class="val" data-i18n="termEchoVal">"Open to internships, collaborations &amp; security projects"</span>
+        </div>
+        <div class="t-line">
+          <span class="prompt">&gt;</span>
+          <span class="comment" data-i18n="termComment2"># Based in Jeddah, Saudi Arabia 🇸🇦</span>
+        </div>
+      </div>
+      <div class="terminal-input-line" style="margin-top: 1.25rem;">
         <span class="prompt">$</span>
-        <span class="cmd">whois</span>
-        <span class="val">talal.alharbi</span>
-      </div>
-      <div class="t-line" style="margin-top:0.5rem;">
-        <span class="prompt">&gt;</span>
-        <span class="comment" data-i18n="termComment1"># Final-year IT student | KAU | Cybersecurity</span>
-      </div>
-      <div class="t-line" style="margin-top: 1.25rem;">
-        <span class="prompt">$</span>
-        <span class="cmd">cat</span>
-        <span class="val">contact.txt</span>
-      </div>
-      <div class="t-line" style="margin-top: 0.25rem;">
-        <span class="prompt">&gt;</span>
-        <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">email</span>
-        <span class="val">
-          <a href="mailto:talalalharbi.jobs@gmail.com" class="val">talalalharbi.jobs@gmail.com</a>
-        </span>
-      </div>
-      <div class="t-line">
-        <span class="prompt">&gt;</span>
-        <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">linkedin</span>
-        <span class="val">
-          <a href="https://www.linkedin.com/in/talal-alharbi-b153aa370" class="val" target="_blank" rel="noopener noreferrer">/in/talal-alharbi-b153aa370</a>
-        </span>
-      </div>
-      <div class="t-line">
-        <span class="prompt">&gt;</span>
-        <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">github</span>
-        <span class="val">
-          <a href="https://github.com/TalalAlha" class="val" target="_blank" rel="noopener noreferrer">@TalalAlha</a>
-        </span>
-      </div>
-      <div class="t-line" style="margin-top: 1.25rem;">
-        <span class="prompt">$</span>
-        <span class="cmd">echo</span>
-        <span class="val" data-i18n="termEchoVal">"Open to internships, collaborations &amp; security projects"</span>
-      </div>
-      <div class="t-line">
-        <span class="prompt">&gt;</span>
-        <span class="comment" data-i18n="termComment2"># Based in Jeddah, Saudi Arabia 🇸🇦</span>
-      </div>
-      <div class="t-line" style="margin-top: 0.75rem;">
-        <span class="prompt">$</span>
-        <span style="color: var(--muted);">█</span>
-        <span class="cursor" style="display:inline-block;width:8px;height:14px;background:var(--amber);animation:blink 1s infinite;vertical-align:-2px;margin-left:2px;"></span>
+        <input type="text" id="terminal-input" autocomplete="off" spellcheck="false" aria-label="Terminal input" placeholder="type 'help'..."/>
       </div>
     </div>
   </div>
@@ -1580,6 +1627,61 @@ function restartTypewriter(phrases) {
   typeTimeout = setTimeout(type, 400);
 }
 
+/* ── Text Scramble / Decryption ── */
+class TextScramble {
+  constructor(el) {
+    this.el = el;
+    this.chars = '!<>-_\\/[]{}—=+*^?#________';
+    this.update = this.update.bind(this);
+  }
+  setText(newText) {
+    const oldText = this.el.textContent;
+    const length = Math.max(oldText.length, newText.length);
+    const promise = new Promise((resolve) => this.resolve = resolve);
+    this.queue = [];
+    for (let i = 0; i < length; i++) {
+      const from = oldText[i] || '';
+      const to = newText[i] || '';
+      const start = Math.floor(Math.random() * 20);
+      const end = start + Math.floor(Math.random() * 20);
+      this.queue.push({ from, to, start, end });
+    }
+    cancelAnimationFrame(this.frameId);
+    this.frame = 0;
+    this.update();
+    return promise;
+  }
+  update() {
+    let output = '';
+    let complete = 0;
+    for (let i = 0, n = this.queue.length; i < n; i++) {
+      let { from, to, start, end, char } = this.queue[i];
+      if (this.frame >= end) {
+        complete++;
+        output += to;
+      } else if (this.frame >= start) {
+        if (!char || Math.random() < 0.28) {
+          char = this.randomChar();
+          this.queue[i].char = char;
+        }
+        output += `<span class="d-char">${char}</span>`;
+      } else {
+        output += from;
+      }
+    }
+    this.el.innerHTML = output;
+    if (complete === this.queue.length) {
+      this.resolve();
+    } else {
+      this.frameId = requestAnimationFrame(this.update);
+      this.frame++;
+    }
+  }
+  randomChar() {
+    return this.chars[Math.floor(Math.random() * this.chars.length)];
+  }
+}
+
 /* ── Nav scroll ── */
 const nav = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
@@ -1588,12 +1690,274 @@ window.addEventListener('scroll', () => {
 
 /* ── Reveal on scroll ── */
 const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      if (e.target.classList.contains('section-title') && !e.target.classList.contains('scrambled')) {
+        e.target.classList.add('scrambled');
+        const targetHtml = e.target.innerHTML;
+        const plainText = e.target.textContent;
+        const scrambler = new TextScramble(e.target);
+        scrambler.setText(plainText).then(() => {
+          e.target.innerHTML = targetHtml;
+        });
+      }
+    }
+  });
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach((el, i) => {
   el.style.transitionDelay = (i % 4) * 0.08 + 's';
   observer.observe(el);
 });
+
+/* ── Interactive Terminal Emulator (Secure) ── */
+const terminalInput = document.getElementById('terminal-input');
+const terminalHistory = document.getElementById('terminal-history');
+const terminalBody = document.querySelector('.terminal-body');
+let matrixInterval = null;
+
+// Keep CLI inputs and focus running smoothly
+terminalBody.addEventListener('click', () => {
+  terminalInput.focus();
+});
+
+terminalInput.addEventListener('keydown', e => {
+  const existingCanvas = document.getElementById('matrix-canvas');
+  if (existingCanvas) {
+    if (matrixInterval) clearInterval(matrixInterval);
+    existingCanvas.remove();
+    e.preventDefault();
+    terminalInput.value = '';
+    return;
+  }
+  
+  if (e.key === 'Enter') {
+    const inputVal = terminalInput.value.trim();
+    terminalInput.value = '';
+    if (inputVal) {
+      handleTerminalCommand(inputVal);
+    }
+  }
+});
+
+function appendCommandLine(cmd) {
+  const line = document.createElement('div');
+  line.className = 't-line';
+  line.style.marginTop = '0.5rem';
+  
+  const promptSpan = document.createElement('span');
+  promptSpan.className = 'prompt';
+  promptSpan.textContent = '$';
+  
+  const cmdSpan = document.createElement('span');
+  cmdSpan.className = 'cmd';
+  cmdSpan.textContent = cmd;
+  
+  line.appendChild(promptSpan);
+  line.appendChild(cmdSpan);
+  terminalHistory.appendChild(line);
+  terminalBody.scrollTop = terminalBody.scrollHeight;
+}
+
+function appendTerminalLine(text, type = 'comment') {
+  const line = document.createElement('div');
+  line.className = 't-line';
+  
+  const promptSpan = document.createElement('span');
+  promptSpan.className = 'prompt';
+  promptSpan.textContent = '>';
+  
+  const valSpan = document.createElement('span');
+  valSpan.className = type;
+  valSpan.textContent = text;
+  
+  line.appendChild(promptSpan);
+  line.appendChild(valSpan);
+  terminalHistory.appendChild(line);
+  terminalBody.scrollTop = terminalBody.scrollHeight;
+}
+
+function appendTerminalHTML(htmlStr) {
+  const line = document.createElement('div');
+  line.className = 't-line';
+  
+  const promptSpan = document.createElement('span');
+  promptSpan.className = 'prompt';
+  promptSpan.textContent = '>';
+  
+  const valSpan = document.createElement('span');
+  valSpan.className = 'val';
+  valSpan.innerHTML = htmlStr;
+  
+  line.appendChild(promptSpan);
+  line.appendChild(valSpan);
+  terminalHistory.appendChild(line);
+  terminalBody.scrollTop = terminalBody.scrollHeight;
+}
+
+function handleTerminalCommand(cmdText) {
+  appendCommandLine(cmdText);
+  
+  const existingCanvas = document.getElementById('matrix-canvas');
+  if (existingCanvas) {
+    if (matrixInterval) clearInterval(matrixInterval);
+    existingCanvas.remove();
+  }
+
+  const parts = cmdText.split(/\s+/);
+  const cmd = parts[0].toLowerCase();
+  const lang = document.documentElement.lang || 'en';
+  
+  switch(cmd) {
+    case 'help':
+      appendTerminalLine('Available commands:', 'cmd');
+      appendTerminalLine('  about    - Display Talal\'s profile & academic major', 'comment');
+      appendTerminalLine('  skills   - List technical cybersecurity skills & tools', 'comment');
+      appendTerminalLine('  certs    - View security credentials (CompTIA, eJPT)', 'comment');
+      appendTerminalLine('  project  - Details about PhishAware simulation platform', 'comment');
+      appendTerminalLine('  contact  - Display contact links (email, LinkedIn, GitHub)', 'comment');
+      appendTerminalLine('  whoami   - Display connection security metadata', 'comment');
+      appendTerminalLine('  scan     - Run simulated vulnerability scanner on the website', 'comment');
+      appendTerminalLine('  hack     - Execute coffee-themed Matrix digital rain', 'comment');
+      appendTerminalLine('  clear    - Clear terminal console history', 'comment');
+      break;
+      
+    case 'clear':
+      terminalHistory.innerHTML = '';
+      break;
+      
+    case 'about':
+      if (lang === 'ar') {
+        appendTerminalLine('طالب تقنية معلومات بالسنة الأخيرة في جامعة الملك عبدالعزيز (٢٠٢٦)', 'val');
+        appendTerminalLine('مختص ومهتم بالأمن السيبراني، تحليل الثغرات، واختبار الاختراق الأخلاقي.', 'val');
+      } else {
+        appendTerminalLine('Final-year IT Student at King Abdulaziz University (Expected graduation: 2026).', 'val');
+        appendTerminalLine('Focusing deeply on Cybersecurity, penetration testing, and ethical hacking.', 'val');
+      }
+      break;
+      
+    case 'skills':
+      appendTerminalLine('[ SECURITY CORE ]', 'cmd');
+      appendTerminalLine('  Cybersecurity, Penetration Testing, Ethical Hacking, Threat Intelligence, Vulnerabilities', 'val');
+      appendTerminalLine('[ TECHNICAL FOUNDATION ]', 'cmd');
+      appendTerminalLine('  Dev: Python, Java, HTML/CSS/JS, SQL, Bash', 'val');
+      appendTerminalLine('  Tools: Kali Linux, Metasploit, Nmap, Burp Suite, Wireshark', 'val');
+      break;
+      
+    case 'certs':
+      appendTerminalLine('CompTIA Security+   [ Verified / Active ]', 'val');
+      appendTerminalLine('eJPT v2             [ Junior Penetration Tester / Active ]', 'val');
+      appendTerminalLine('eCIR                [ Planned ]', 'comment');
+      appendTerminalLine('ISO 27001           [ Planned ]', 'comment');
+      break;
+      
+    case 'project':
+      appendTerminalLine('PhishAware - Phishing Simulation & Security Awareness Platform', 'cmd');
+      appendTerminalLine('  * Designed specifically for the MENA region with bilingual simulations.', 'val');
+      appendTerminalLine('  * AI-driven email generation to create convincing lures.', 'val');
+      appendTerminalLine('  * Interactive analytics on organization click susceptibility.', 'val');
+      appendTerminalLine('  * Live Inbox delivery testing.', 'val');
+      break;
+      
+    case 'contact':
+      appendTerminalHTML('Email: <a href="mailto:talalalharbi.jobs@gmail.com" class="val" id="term-live-email">talalalharbi.jobs@gmail.com</a>');
+      appendTerminalHTML('LinkedIn: <a href="https://www.linkedin.com/in/talal-alharbi-b153aa370" class="val" target="_blank" rel="noopener noreferrer" id="term-live-linkedin">/in/talal-alharbi-b153aa370</a>');
+      appendTerminalHTML('GitHub: <a href="https://github.com/TalalAlha" class="val" target="_blank" rel="noopener noreferrer" id="term-live-github">@TalalAlha</a>');
+      break;
+      
+    case 'whoami':
+      appendTerminalLine(`User: Visitor / Guest Researcher`, 'val');
+      appendTerminalLine(`Session: SECURE (Sandboxed Console Environment)`, 'val');
+      appendTerminalLine(`Client Agent: ${navigator.userAgent.slice(0, 50)}...`, 'val');
+      appendTerminalLine(`Connection Time: ${new Date().toLocaleString()}`, 'val');
+      break;
+      
+    case 'scan':
+      runSimulatedScan();
+      break;
+      
+    case 'hack':
+      runMatrixHack();
+      break;
+      
+    default:
+      appendTerminalLine(`bash: command not found: ${cmd}. Type 'help' for options.`, 'comment');
+      break;
+  }
+}
+
+function runSimulatedScan() {
+  const steps = [
+    { text: 'Initializing vulnerability scanner...', delay: 0 },
+    { text: '[████░░░░░░░░░░░░░░░░░░░░░░░░░░] 13% — Checking headers', delay: 400 },
+    { text: '[████████████░░░░░░░░░░░░░░░░░░] 40% — Ports & services scan', delay: 800 },
+    { text: '[██████████████████████░░░░░░░░] 73% — Sanitization check', delay: 1200 },
+    { text: '[██████████████████████████████] 100% — Analysis complete', delay: 1600 },
+    { text: 'SCAN COMPLETE: 0 vulnerabilities found. Website is secure.', delay: 1900 }
+  ];
+
+  terminalInput.disabled = true;
+  terminalInput.placeholder = 'Scanning...';
+
+  steps.forEach(step => {
+    setTimeout(() => {
+      appendTerminalLine(step.text, step.text.includes('0 vulnerabilities') ? 'val' : 'comment');
+      if (step.delay === 1900) {
+        terminalInput.disabled = false;
+        terminalInput.placeholder = "type 'help'...";
+        terminalInput.focus();
+      }
+    }, step.delay);
+  });
+}
+
+function runMatrixHack() {
+  const canvas = document.createElement('canvas');
+  canvas.id = 'matrix-canvas';
+  canvas.style.position = 'absolute';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.width = terminalBody.scrollWidth + 'px';
+  canvas.style.height = terminalBody.scrollHeight + 'px';
+  canvas.style.zIndex = '5';
+  canvas.style.background = 'rgba(14, 8, 4, 0.9)';
+  canvas.style.pointerEvents = 'none';
+  
+  terminalBody.appendChild(canvas);
+  
+  const ctx = canvas.getContext('2d');
+  canvas.width = terminalBody.scrollWidth;
+  canvas.height = terminalBody.scrollHeight;
+  
+  const columns = Math.floor(canvas.width / 14);
+  const ypos = Array(columns).fill(0);
+  
+  ctx.fillStyle = '#0E0804';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  
+  function draw() {
+    ctx.fillStyle = 'rgba(14, 8, 4, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    ctx.fillStyle = '#C8852A'; // Amber color
+    ctx.font = '12px monospace';
+    
+    ypos.forEach((y, index) => {
+      const text = String.fromCharCode(33 + Math.random() * 93);
+      const x = index * 14;
+      ctx.fillText(text, x, y);
+      if (y > 100 + Math.random() * 10000) {
+        ypos[index] = 0;
+      } else {
+        ypos[index] = y + 14;
+      }
+    });
+  }
+  
+  matrixInterval = setInterval(draw, 33);
+  
+  appendTerminalLine('[Matrix Hack active. Type any command or key to exit]', 'cmd');
+}
 
 /* ── Boot ── */
 let initialLang = 'en';
