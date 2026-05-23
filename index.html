@@ -1,4 +1,3 @@
-<!-- Updated via GitHub auto-deploy -->
  
 <!DOCTYPE html>
 <html lang="en">
@@ -1275,7 +1274,7 @@
 <!-- ── PROJECTS ── -->
 <section id="projects">
   <div class="section-label reveal" data-i18n="projectsLabel">Work</div>
-  <h2 class="section-title reveal" data-i18n-html="projectsTitle">Featured <em>Project</em></h2>
+  <h2 class="section-title reveal" data-i18n-html="projectsTitle">Featured <em>Projects</em></h2>
 
   <div class="project-featured reveal">
     <div class="project-featured-bg"></div>
@@ -1331,6 +1330,52 @@
     </div>
     <div style="margin-top: 2rem; display: inline-block;">
       <a href="https://phishaware.me/" target="_blank" rel="noopener noreferrer" class="btn-primary" data-i18n="visitProject" id="project-visit-phishaware">Visit Project ↗</a>
+    </div>
+  </div>
+
+  <div class="project-featured reveal" style="margin-top: 4rem;">
+    <div class="project-featured-bg"></div>
+
+    <div class="project-header">
+      <div class="project-name">
+        <span data-i18n-html="projWebScanName"><em>Web</em>Scan</span>
+      </div>
+      <div class="project-badges">
+        <span class="badge badge-status" data-i18n="badgeActive">Live & Actively Developed</span>
+      </div>
+    </div>
+
+    <div class="project-desc" data-i18n-html="projWebScanDesc">
+      A fast, automated security auditing tool that helps evaluate the security posture of web applications. It performs dozens of checks in seconds and generates a beautiful, actionable report with a precise grading system.
+    </div>
+
+    <div class="project-feature-list">
+      <div class="feature-item">
+        <div class="feature-name" data-i18n="featWSDnsName">HTTP & DNS Security</div>
+        <div class="feature-desc" data-i18n="featWSDnsDesc">Checks critical security headers and automatically resolves and verifies CAA, SPF, DMARC, and DNSSEC records.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-name" data-i18n="featWSSslName">SSL/TLS Configuration</div>
+        <div class="feature-desc" data-i18n="featWSSslDesc">Inspects protocol versions, certificate validity, issuer, and expiry for robust connection security.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-name" data-i18n="featWSFilesName">Exposed Sensitive Files</div>
+        <div class="feature-desc" data-i18n="featWSFilesDesc">Scans common paths for exposed data such as environment variables, git configs, and backups.</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-name" data-i18n="featWSMisconfName">Misconfiguration Detection</div>
+        <div class="feature-desc" data-i18n="featWSMisconfDesc">Validates HTTPS redirection, directory listings, and Server version hiding.</div>
+      </div>
+    </div>
+
+    <div class="project-tech">
+      <span class="tech-tag">Python</span>
+      <span class="tech-tag">Flask</span>
+      <span class="tech-tag">HTML / CSS / JS</span>
+      <span class="tech-tag">Security Auditing</span>
+    </div>
+    <div style="margin-top: 2rem; display: inline-block;">
+      <a href="https://github.com/TalalAlha/WebScan.git" target="_blank" rel="noopener noreferrer" class="btn-primary" data-i18n="visitWebScan">View on GitHub ↗</a>
     </div>
   </div>
 </section>
@@ -1459,7 +1504,7 @@ const i18n = {
     certIsoIssuer: '// Information Security Management Standard',
     certPlannedChip: 'Planned',
     projectsLabel: 'Work',
-    projectsTitle: 'Featured <em>Project</em>',
+    projectsTitle: 'Featured <em>Projects</em>',
     projName: '<em>Phish</em>Aware',
     badgeActive: 'Live & Actively Developed',
     visitProject: 'Visit Live Site ↗',
@@ -1472,6 +1517,17 @@ const i18n = {
     featDashDesc: 'Real-time analytics on employee susceptibility, click rates, and training completion across departments.',
     featDeliveryName: 'Simulation Email Delivery',
     featDeliveryDesc: 'Sends crafted phishing simulation emails directly to employee inboxes to test real-world susceptibility and measure response under authentic conditions.',
+    projWebScanName: '<em>Web</em>Scan',
+    projWebScanDesc: 'A fast, automated security auditing tool that helps evaluate the security posture of web applications. It performs dozens of checks in seconds and generates a beautiful, actionable report with a precise grading system.',
+    featWSDnsName: 'HTTP & DNS Security',
+    featWSDnsDesc: 'Checks critical security headers and automatically resolves and verifies CAA, SPF, DMARC, and DNSSEC records.',
+    featWSSslName: 'SSL/TLS Configuration',
+    featWSSslDesc: 'Inspects protocol versions, certificate validity, issuer, and expiry for robust connection security.',
+    featWSFilesName: 'Exposed Sensitive Files',
+    featWSFilesDesc: 'Scans common paths for exposed data such as environment variables, git configs, and backups.',
+    featWSMisconfName: 'Misconfiguration Detection',
+    featWSMisconfDesc: 'Validates HTTPS redirection, directory listings, and Server version hiding.',
+    visitWebScan: 'View on GitHub ↗',
     techMENA: 'MENA Focus', techAwareness: 'Security Awareness',
     contactLabel: 'Connect',
     contactTitle: 'Get In <em>Touch</em>',
@@ -1531,7 +1587,7 @@ const i18n = {
     certIsoIssuer: '// معيار إدارة أمن المعلومات الدولي',
     certPlannedChip: 'مخطط لها',
     projectsLabel: 'الأعمال',
-    projectsTitle: 'مشروع <em>مميز</em>',
+    projectsTitle: 'أبرز <em>المشاريع</em>',
     projName: '<em>Phish</em>Aware',
     badgeActive: 'متاح وتطوير مستمر',
     visitProject: 'زيارة موقع المشروع ↗',   
@@ -1544,6 +1600,17 @@ const i18n = {
     featDashDesc: 'تحليلات لحظية لمدى وقوع الموظفين بالتصيّد، نسب النقر، وإكمال التدريب لكل قسم في المؤسسة.',
     featDeliveryName: 'إرسال رسائل المحاكاة',
     featDeliveryDesc: 'يرسل رسائل التصيّد المُعدة مباشرة إلى إيميلات الموظفين، عشان نقيس استجابتهم في ظروف واقعية فعلية.',
+    projWebScanName: '<em>Web</em>Scan',
+    projWebScanDesc: 'أداة سريعة وآلية للتدقيق الأمني وتقييم الوضع الأمني لتطبيقات الويب. تنفذ عشرات الفحوصات في ثوانٍ وتولد تقريراً جميلاً وعملياً بنظام تقييم دقيق.',
+    featWSDnsName: 'أمان HTTP و DNS',
+    featWSDnsDesc: 'يفحص الترويسات الأمنية الهامة ويتحقق تلقائياً من سجلات CAA، SPF، DMARC، و DNSSEC.',
+    featWSSslName: 'تكوين SSL/TLS',
+    featWSSslDesc: 'يفحص إصدارات البروتوكول، صلاحية الشهادة، والمُصدِر لضمان أمان اتصال قوي.',
+    featWSFilesName: 'الملفات الحساسة المكشوفة',
+    featWSFilesDesc: 'يفحص المسارات الشائعة للبيانات المكشوفة مثل متغيرات البيئة، ملفات git، والنسخ الاحتياطية.',
+    featWSMisconfName: 'اكتشاف التكوينات الخاطئة',
+    featWSMisconfDesc: 'يتحقق من إعادة توجيه HTTPS، قوائم الدلائل، وإخفاء إصدار الخادم.',
+    visitWebScan: 'عرض على GitHub ↗',
     techMENA: 'تركيز على منطقة MENA', techAwareness: 'وعي أمني',
     contactLabel: 'تواصل',
     contactTitle: 'تواصل <em>معي</em>',
@@ -1566,7 +1633,22 @@ function applyLanguage(lang) {
   });
   document.querySelectorAll('[data-i18n-html]').forEach(el => {
     const key = el.getAttribute('data-i18n-html');
-    if (dict[key] !== undefined) el.innerHTML = dict[key];
+    if (dict[key] !== undefined) {
+      if (el.classList.contains('section-title') && el.classList.contains('scrambled')) {
+        const oldText = el.textContent;
+        el.innerHTML = dict[key];
+        const newHtml = el.innerHTML;
+        const newText = el.textContent;
+        
+        el.textContent = oldText;
+        const scrambler = new TextScramble(el);
+        scrambler.setText(newText).then(() => {
+          el.innerHTML = newHtml;
+        });
+      } else {
+        el.innerHTML = dict[key];
+      }
+    }
   });
   // Keep glitch data-text in sync
   const glitch = document.querySelector('h1.hero-name .glitch');
@@ -1704,9 +1786,11 @@ const observer = new IntersectionObserver(entries => {
       }
     }
   });
-}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
 document.querySelectorAll('.reveal').forEach((el, i) => {
-  el.style.transitionDelay = (i % 4) * 0.08 + 's';
+  if (!el.classList.contains('project-featured')) {
+    el.style.transitionDelay = (i % 4) * 0.08 + 's';
+  }
   observer.observe(el);
 });
 
