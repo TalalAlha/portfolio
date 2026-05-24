@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 <img src="./Clean_Logo.png" alt="Talal Alharbi Logo" width="140"/>
 
@@ -12,8 +12,8 @@
 $ cat ./about.txt
 
 > Final-year IT student @ King Abdulaziz University
-> Brewing exploits the way a barista brews pour-overs:
-> slow, precise, and slightly obsessive.
+> Approaching offensive security with precision, patience,
+> and a slight obsession with understanding how things work.
 ```
 
 <div align="center">
@@ -119,7 +119,7 @@ A purpose-built security-awareness platform that bridges the gap between Western
   Every system is a puzzle worth understanding completely.
   Curiosity is the first exploit. Patience is the second.
   The best defense starts with thinking like the attacker —
-  preferably over a single-origin pour-over. ☕
+  preferably with a methodical and persistent mindset.
 ```
 
 ---
