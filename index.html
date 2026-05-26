@@ -726,6 +726,53 @@
   }
   .tech-tag:hover { color: var(--muted); border-color: rgba(106,88,72,0.5); }
 
+  .projects-secondary-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    font-weight: 300;
+    color: var(--cream);
+    margin-top: 4rem;
+    margin-bottom: 1.5rem;
+  }
+  .projects-secondary-title em { color: var(--amber); font-style: italic; }
+
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+  }
+  .project-card {
+    background: var(--roast);
+    border: 1px solid rgba(200,133,42,0.15);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    display: flex; flex-direction: column;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    cursor: none;
+  }
+  .project-card:hover {
+    border-color: rgba(200,133,42,0.4);
+    box-shadow: 0 10px 30px rgba(200,133,42,0.05);
+  }
+  .project-card .project-name {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+    font-weight: 300; color: var(--cream);
+    margin-bottom: 1rem; line-height: 1.1;
+  }
+  .project-card .project-name em { font-style: italic; color: var(--amber); }
+  .project-card .project-desc {
+    font-size: 0.9rem; color: var(--parchment); line-height: 1.7;
+    margin-bottom: 2rem; flex-grow: 1;
+  }
+  .project-card .project-tech {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem;
+  }
+  .project-card .btn-ghost {
+    margin-top: auto; align-self: flex-start;
+  }
+  @media (max-width: 900px) {
+    .projects-grid { grid-template-columns: 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+  }
+
   /* ── CONTACT ── */
   #contact { border-top: 1px solid rgba(200,133,42,0.08); }
   .contact-terminal {
@@ -966,8 +1013,8 @@
   }
   body[dir="rtl"] h1.hero-name,
   body[dir="rtl"] h2.section-title,
+  body[dir="rtl"] .projects-secondary-title,
   body[dir="rtl"] .stat-value,
-  body[dir="rtl"] .project-name,
   body[dir="rtl"] .cert-name {
     font-family: var(--font-ar-display);
     font-weight: 400;
@@ -975,7 +1022,7 @@
   body[dir="rtl"] h1.hero-name { line-height: 1.15; }
   body[dir="rtl"] h2.section-title { line-height: 1.3; }
   body[dir="rtl"] h2.section-title em,
-  body[dir="rtl"] .project-name em,
+  body[dir="rtl"] .projects-secondary-title em,
   body[dir="rtl"] .hero-name span[style*="italic"] { font-style: normal !important; }
 
   body[dir="rtl"] .section-label { font-size: 0.85rem; }
@@ -1332,49 +1379,42 @@
     </div>
   </div>
 
-  <div class="project-featured reveal" style="margin-top: 4rem;">
-    <div class="project-featured-bg"></div>
-
-    <div class="project-header">
+  <h3 class="projects-secondary-title reveal" data-i18n-html="projectsSecondaryTitle">Other <em>Security Tools</em></h3>
+  <div class="projects-grid">
+    <div class="project-card reveal">
       <div class="project-name">
         <span data-i18n-html="projWebScanName"><em>Web</em>Scan</span>
       </div>
-      <div class="project-badges">
-        <span class="badge badge-status" data-i18n="badgeActive">Live & Actively Developed</span>
+      <div class="project-desc" data-i18n-html="projWebScanDesc">
+        A fast, automated security auditing tool that helps evaluate the security posture of web applications. It performs dozens of checks in seconds and generates a beautiful, actionable report with a precise grading system.
+      </div>
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Flask</span>
+        <span class="tech-tag">HTML / CSS / JS</span>
+        <span class="tech-tag" data-i18n="techSecAuditing">Security Auditing</span>
+      </div>
+      <div style="margin-top: auto;">
+        <a href="https://github.com/TalalAlha/WebScan.git" target="_blank" rel="noopener noreferrer" class="btn-ghost" data-i18n="visitWebScan">View on GitHub ↗</a>
       </div>
     </div>
 
-    <div class="project-desc" data-i18n-html="projWebScanDesc">
-      A fast, automated security auditing tool that helps evaluate the security posture of web applications. It performs dozens of checks in seconds and generates a beautiful, actionable report with a precise grading system.
-    </div>
-
-    <div class="project-feature-list">
-      <div class="feature-item">
-        <div class="feature-name" data-i18n="featWSDnsName">HTTP & DNS Security</div>
-        <div class="feature-desc" data-i18n="featWSDnsDesc">Checks critical security headers and automatically resolves and verifies CAA, SPF, DMARC, and DNSSEC records.</div>
+    <div class="project-card reveal">
+      <div class="project-name">
+        <span data-i18n-html="projSecretScannerName"><em>Secret</em>Scanner</span>
       </div>
-      <div class="feature-item">
-        <div class="feature-name" data-i18n="featWSSslName">SSL/TLS Configuration</div>
-        <div class="feature-desc" data-i18n="featWSSslDesc">Inspects protocol versions, certificate validity, issuer, and expiry for robust connection security.</div>
+      <div class="project-desc" data-i18n-html="projSecretScannerDesc">
+        A fast, automated command-line tool that evaluates codebases for accidentally committed secrets, API keys, and credentials across local directories and remote GitHub repositories.
       </div>
-      <div class="feature-item">
-        <div class="feature-name" data-i18n="featWSFilesName">Exposed Sensitive Files</div>
-        <div class="feature-desc" data-i18n="featWSFilesDesc">Scans common paths for exposed data such as environment variables, git configs, and backups.</div>
+      <div class="project-tech">
+        <span class="tech-tag">Python</span>
+        <span class="tech-tag">Regex</span>
+        <span class="tech-tag">GitHub API</span>
+        <span class="tech-tag" data-i18n="techSecAuditing">Security Auditing</span>
       </div>
-      <div class="feature-item">
-        <div class="feature-name" data-i18n="featWSMisconfName">Misconfiguration Detection</div>
-        <div class="feature-desc" data-i18n="featWSMisconfDesc">Validates HTTPS redirection, directory listings, and Server version hiding.</div>
+      <div style="margin-top: auto;">
+        <a href="https://github.com/TalalAlha/SecretScanner.git" target="_blank" rel="noopener noreferrer" class="btn-ghost" data-i18n="visitSecretScanner">View on GitHub ↗</a>
       </div>
-    </div>
-
-    <div class="project-tech">
-      <span class="tech-tag">Python</span>
-      <span class="tech-tag">Flask</span>
-      <span class="tech-tag">HTML / CSS / JS</span>
-      <span class="tech-tag">Security Auditing</span>
-    </div>
-    <div style="margin-top: 2rem; display: inline-block;">
-      <a href="https://github.com/TalalAlha/WebScan.git" target="_blank" rel="noopener noreferrer" class="btn-primary" data-i18n="visitWebScan">View on GitHub ↗</a>
     </div>
   </div>
 </section>
@@ -1527,6 +1567,11 @@ const i18n = {
     featWSMisconfName: 'Misconfiguration Detection',
     featWSMisconfDesc: 'Validates HTTPS redirection, directory listings, and Server version hiding.',
     visitWebScan: 'View on GitHub ↗',
+    projSecretScannerName: '<em>Secret</em>Scanner',
+    projSecretScannerDesc: 'A fast, automated command-line tool that evaluates codebases for accidentally committed secrets, API keys, and credentials across local directories and remote GitHub repositories.',
+    visitSecretScanner: 'View on GitHub ↗',
+    techSecAuditing: 'Security Auditing',
+    projectsSecondaryTitle: 'Other <em>Security Tools</em>',
     techMENA: 'MENA Focus', techAwareness: 'Security Awareness',
     contactLabel: 'Connect',
     contactTitle: 'Get In <em>Touch</em>',
@@ -1610,6 +1655,11 @@ const i18n = {
     featWSMisconfName: 'اكتشاف التكوينات الخاطئة',
     featWSMisconfDesc: 'يتحقق من إعادة توجيه HTTPS، قوائم الدلائل، وإخفاء إصدار الخادم.',
     visitWebScan: 'عرض على GitHub ↗',
+    projSecretScannerName: '<em>Secret</em>Scanner',
+    projSecretScannerDesc: 'أداة سريعة وآلية تعمل من سطر الأوامر لتقييم الأكواد البرمجية للبحث عن الأسرار ومفاتيح API والبيانات الحساسة الملتزم بها عن طريق الخطأ في الملفات المحلية ومستودعات GitHub عن بعد.',
+    visitSecretScanner: 'عرض على GitHub ↗',
+    techSecAuditing: 'تدقيق أمني',
+    projectsSecondaryTitle: 'أدوات أمنية <em>أخرى</em>',
     techMENA: 'تركيز على منطقة MENA', techAwareness: 'وعي أمني',
     contactLabel: 'تواصل',
     contactTitle: 'تواصل <em>معي</em>',
