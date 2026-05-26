@@ -87,7 +87,7 @@ mood:        "still curious, always"
 
 ---
 
-## 🚀 `./featured_project`
+## 🚀 `./projects`
 
 ### 🎣 PhishAware — *Bilingual Phishing Simulation for the MENA Region*
 
@@ -106,7 +106,29 @@ A purpose-built security-awareness platform that bridges the gap between Western
 
 **Tech:** `Python` · `React` · `SQL` · `AI/LLM` · `MENA-focused threat modeling`
 
-🟡 *Active Development — coming soon*
+🟢 *Live & Actively Developed*
+
+🔗 [Visit PhishAware ↗](https://phishaware.me/)
+
+---
+
+### 🕸️ WebScan — *Automated Security Auditing Tool*
+
+A fast, automated security auditing tool that helps evaluate the security posture of web applications. It performs dozens of checks in seconds and generates a beautiful, actionable report with a precise grading system.
+
+**Tech:** `Python` · `Flask` · `HTML / CSS / JS` · `Security Auditing`
+
+🔗 [View on GitHub ↗](https://github.com/TalalAlha/WebScan.git)
+
+---
+
+### 🔑 SecretScanner — *Command-Line Secrets Auditor*
+
+A fast, automated command-line tool that evaluates codebases for accidentally committed secrets, API keys, and credentials across local directories and remote GitHub repositories.
+
+**Tech:** `Python` · `Regex` · `GitHub API` · `Security Auditing`
+
+🔗 [View on GitHub ↗](https://github.com/TalalAlha/SecretScanner.git)
 
 ---
 
@@ -153,6 +175,6 @@ $ whois talal.alharbi
 
 *`</readme>`*
 
-**Built with ☕, curiosity, and probably one tab too many open.**
+**Crafted with precision.**
 
 </div>
