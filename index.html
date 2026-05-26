@@ -1014,16 +1014,13 @@
   body[dir="rtl"] h1.hero-name,
   body[dir="rtl"] h2.section-title,
   body[dir="rtl"] .projects-secondary-title,
-  body[dir="rtl"] .stat-value,
-  body[dir="rtl"] .cert-name {
+  body[dir="rtl"] .stat-value {
     font-family: var(--font-ar-display);
     font-weight: 400;
   }
   body[dir="rtl"] h1.hero-name { line-height: 1.15; }
   body[dir="rtl"] h2.section-title { line-height: 1.3; }
-  body[dir="rtl"] h2.section-title em,
-  body[dir="rtl"] .projects-secondary-title em,
-  body[dir="rtl"] .hero-name span[style*="italic"] { font-style: normal !important; }
+
 
   body[dir="rtl"] .section-label { font-size: 0.85rem; }
   body[dir="rtl"] .hero-eyebrow { font-size: 0.95rem; }
@@ -1947,7 +1944,7 @@ function handleTerminalCommand(cmdText) {
       appendTerminalLine('  about    - Display Talal\'s profile & academic major', 'comment');
       appendTerminalLine('  skills   - List technical cybersecurity skills & tools', 'comment');
       appendTerminalLine('  certs    - View security credentials (CompTIA, eJPT)', 'comment');
-      appendTerminalLine('  project  - Details about PhishAware simulation platform', 'comment');
+      appendTerminalLine('  projects - List security tools and platforms (PhishAware, WebScan, SecretScanner)', 'comment');
       appendTerminalLine('  contact  - Display contact links (email, LinkedIn, GitHub)', 'comment');
       appendTerminalLine('  whoami   - Display connection security metadata', 'comment');
       appendTerminalLine('  scan     - Run simulated vulnerability scanner on the website', 'comment');
@@ -1985,11 +1982,14 @@ function handleTerminalCommand(cmdText) {
       break;
       
     case 'project':
-      appendTerminalLine('PhishAware - Phishing Simulation & Security Awareness Platform', 'cmd');
+    case 'projects':
+      appendTerminalLine('[ PhishAware ] - Phishing Simulation & Security Awareness Platform', 'cmd');
       appendTerminalLine('  * Designed specifically for the MENA region with bilingual simulations.', 'val');
       appendTerminalLine('  * AI-driven email generation to create convincing lures.', 'val');
-      appendTerminalLine('  * Interactive analytics on organization click susceptibility.', 'val');
-      appendTerminalLine('  * Live Inbox delivery testing.', 'val');
+      appendTerminalLine('[ WebScan ] - Automated Security Auditing Tool', 'cmd');
+      appendTerminalLine('  * Evaluates security posture with a precise grading system.', 'val');
+      appendTerminalLine('[ SecretScanner ] - Command-line secrets auditor', 'cmd');
+      appendTerminalLine('  * Discovers accidentally committed credentials in local and remote repos.', 'val');
       break;
       
     case 'contact':
