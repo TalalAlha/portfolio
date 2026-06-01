@@ -1263,6 +1263,49 @@
   }
   body[dir="rtl"] .egg-toast { font-family: var(--font-ar-body); letter-spacing: 0; }
 
+  /* — Copy button — */
+  .copy-btn {
+    background: transparent; border: 1px solid rgba(200,133,42,0.3);
+    color: var(--label); border-radius: 3px;
+    font-size: 0.72rem; line-height: 1; cursor: pointer;
+    padding: 0.15rem 0.4rem; margin-inline-start: 0.45rem;
+    vertical-align: middle;
+    transition: color 0.2s, border-color 0.2s, background 0.2s;
+  }
+  .copy-btn:hover { color: var(--cream); border-color: var(--amber); background: rgba(200,133,42,0.1); }
+  .copy-btn.copied { color: var(--teal); border-color: var(--teal); }
+
+  /* — Toast (shared) — */
+  #toast {
+    position: fixed; bottom: 1.5rem; left: 50%;
+    transform: translateX(-50%) translateY(160%);
+    z-index: 1200; max-width: 90vw;
+    font-family: var(--font-mono); font-size: 0.8rem;
+    color: var(--cream); background: rgba(20,12,6,0.96);
+    border: 1px solid rgba(200,133,42,0.4); border-left: 3px solid var(--teal);
+    border-radius: var(--radius-sm); padding: 0.7rem 1.1rem;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+    opacity: 0; transition: transform 0.35s cubic-bezier(.2,.8,.2,1), opacity 0.35s;
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  body[dir="rtl"] #toast { font-family: var(--font-ar-body); border-left: none; border-right: 3px solid var(--teal); }
+
+  /* — Print / résumé mode — */
+  @media print {
+    #cursor, #cursor-ring, nav, .nav-toggle, .mobile-menu, #scrollProgress,
+    .skip-link, #toast, .hero-watermark, .coffee-ring,
+    .terminal-input-line, .lang-toggle, .hero-scroll-hint, #konami-rain, .copy-btn { display: none !important; }
+    * { color: #14110d !important; background: #fff !important; box-shadow: none !important; text-shadow: none !important; }
+    body { background: #fff !important; }
+    a { color: #14110d !important; text-decoration: underline; }
+    section { padding: 1.1rem 0 !important; max-width: 100% !important; page-break-inside: avoid; }
+    .reveal { opacity: 1 !important; transform: none !important; }
+    .skill-tag, .tech-tag, .cert-card, .stat-item, .project-card,
+    .project-featured, .contact-terminal, .terminal-body {
+      border: 1px solid #ccc !important; background: #fff !important;
+    }
+  }
+
   /* — Respect reduced-motion preference — */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -1632,6 +1675,7 @@
           <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">email</span>
           <span class="val">
             <a href="mailto:talalalharbi.jobs@gmail.com" class="val" id="term-link-email">talalalharbi.jobs@gmail.com</a>
+            <button class="copy-btn" id="copyEmailBtn" type="button" aria-label="Copy email address" title="Copy email">⧉</button>
           </span>
         </div>
         <div class="t-line">
@@ -1670,6 +1714,9 @@
 <footer>
   <span data-i18n="footerName">Talal Abid Alharbi</span><span data-i18n="footerSep"> · Crafted with precision &amp; a double espresso · </span><span>2026</span>
 </footer>
+
+<!-- ── TOAST ── -->
+<div id="toast" role="status" aria-live="polite"></div>
 
 <script>
 /* ──────────────────────────────────────────
@@ -2169,7 +2216,12 @@ function handleTerminalCommand(cmdText) {
       appendTerminalLine('  certs    - View security credentials (CompTIA, eJPT)', 'comment');
       appendTerminalLine('  projects - List security tools and platforms (PhishAware, WebScan, SecretScanner)', 'comment');
       appendTerminalLine('  contact  - Display contact links (email, LinkedIn, GitHub)', 'comment');
+      appendTerminalLine('  ls       - List the sections of this site', 'comment');
+      appendTerminalLine('  open <x> - Open a project/link (phishaware, webscan, secretscanner, github, linkedin, email)', 'comment');
+      appendTerminalLine('  goto <x> - Scroll to a section (about, skills, certs, projects, contact)', 'comment');
+      appendTerminalLine('  resume   - Open the print / save-as-PDF view', 'comment');
       appendTerminalLine('  whoami   - Display connection security metadata', 'comment');
+      appendTerminalLine('  date     - Show current date & local Jeddah time', 'comment');
       appendTerminalLine('  scan     - Run simulated vulnerability scanner on the website', 'comment');
       appendTerminalLine('  hack     - Execute coffee-themed Matrix digital rain', 'comment');
       appendTerminalLine('  clear    - Clear terminal console history', 'comment');
@@ -2231,11 +2283,82 @@ function handleTerminalCommand(cmdText) {
     case 'scan':
       runSimulatedScan();
       break;
-      
+
     case 'hack':
       runMatrixHack();
       break;
-      
+
+    case 'ls':
+      appendTerminalLine('about/   skills/   certs/   projects/   contact/', 'val');
+      break;
+
+    case 'pwd':
+      appendTerminalLine('/home/talal/portfolio', 'val');
+      break;
+
+    case 'date': {
+      const now = new Date();
+      const jeddah = now.toLocaleString(lang === 'ar' ? 'ar-SA' : 'en-GB', { timeZone: 'Asia/Riyadh', hour12: false });
+      appendTerminalLine(jeddah + ' (GMT+3, Jeddah)', 'val');
+      break;
+    }
+
+    case 'echo':
+      appendTerminalLine(parts.slice(1).join(' ') || '', 'val');
+      break;
+
+    case 'sudo':
+      appendTerminalLine(`[sudo] password for visitor: `, 'comment');
+      appendTerminalLine(`Sorry, nice try 😏 — this incident will be reported.`, 'cmd');
+      break;
+
+    case 'banner':
+      appendTerminalLine('  _        _       _         _', 'val');
+      appendTerminalLine(' | |_ __ _| | __ _| |  ___  | |__', 'val');
+      appendTerminalLine(" | __/ _` | |/ _` | | / __| | '_ \\", 'val');
+      appendTerminalLine(' | || (_| | | (_| | |_\\__ \\_| | | |', 'val');
+      appendTerminalLine('  \\__\\__,_|_|\\__,_|_(_)___(_)_| |_|', 'val');
+      break;
+
+    case 'resume':
+    case 'cv':
+      appendTerminalLine('Opening print / save-as-PDF view…', 'cmd');
+      setTimeout(() => window.print(), 400);
+      break;
+
+    case 'open': {
+      const target = (parts[1] || '').toLowerCase();
+      const links = {
+        phishaware: 'https://phishaware.me/',
+        webscan: 'https://github.com/TalalAlha/WebScan.git',
+        secretscanner: 'https://github.com/TalalAlha/SecretScanner.git',
+        github: 'https://github.com/TalalAlha',
+        linkedin: 'https://www.linkedin.com/in/talal-alharbi-b153aa370',
+        email: 'mailto:talalalharbi.jobs@gmail.com',
+      };
+      if (links[target]) {
+        appendTerminalLine(`Opening ${target}…`, 'cmd');
+        window.open(links[target], target === 'email' ? '_self' : '_blank', 'noopener');
+      } else {
+        appendTerminalLine(`open: unknown target '${parts[1] || ''}'. Try: phishaware, webscan, secretscanner, github, linkedin, email`, 'comment');
+      }
+      break;
+    }
+
+    case 'cd':
+    case 'goto': {
+      const sec = (parts[1] || '').toLowerCase().replace(/\/$/, '');
+      const valid = ['about','skills','certs','projects','contact','hero'];
+      if (valid.includes(sec)) {
+        appendTerminalLine(`Navigating to /${sec}…`, 'cmd');
+        const el = document.getElementById(sec);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        appendTerminalLine(`${cmd}: no such section '${parts[1] || ''}'. Try: about, skills, certs, projects, contact`, 'comment');
+      }
+      break;
+    }
+
     default:
       appendTerminalLine(`bash: command not found: ${cmd}. Type 'help' for options.`, 'comment');
       break;
@@ -2448,6 +2571,57 @@ function triggerEgg() {
 console.log('%c🔒 secure zone — curious minds welcome.%c\n   try the Konami code: ↑ ↑ ↓ ↓ ← → ← → B A',
   'color:#C8852A;font-family:monospace;font-size:13px;font-weight:bold;',
   'color:#9A8070;font-family:monospace;font-size:12px;');
+
+/* ── Toast (shared) ── */
+const toastEl = document.getElementById('toast');
+let toastTimer = null;
+function showToast(msg) {
+  if (!toastEl) return;
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 2200);
+}
+
+/* ── Copy email to clipboard ── */
+const EMAIL = 'talalalharbi.jobs@gmail.com';
+const copyEmailBtn = document.getElementById('copyEmailBtn');
+function copyEmail() {
+  const done = () => {
+    showToast(document.body.dir === 'rtl' ? '✓ تم نسخ الإيميل' : '✓ email copied to clipboard');
+    if (copyEmailBtn) {
+      copyEmailBtn.classList.add('copied');
+      copyEmailBtn.textContent = '✓';
+      setTimeout(() => { copyEmailBtn.classList.remove('copied'); copyEmailBtn.textContent = '⧉'; }, 1500);
+    }
+  };
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value = EMAIL; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    try { document.execCommand('copy'); done(); } catch (e) {}
+    ta.remove();
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(EMAIL).then(done).catch(fallback);
+  } else { fallback(); }
+}
+if (copyEmailBtn) copyEmailBtn.addEventListener('click', copyEmail);
+
+/* ── Scramble-on-hover (skill & tech tags) ── */
+if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.skill-tag, .tech-tag').forEach(tag => {
+    tag.addEventListener('mouseenter', () => {
+      if (tag.dataset.scrambling === '1') return;
+      const original = tag.textContent;
+      tag.dataset.scrambling = '1';
+      new TextScramble(tag).setText(original).then(() => {
+        tag.textContent = original;
+        tag.dataset.scrambling = '0';
+      });
+    });
+  });
+}
 
 /* ── Boot ── */
 let initialLang = 'en';
