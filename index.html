@@ -5,17 +5,20 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#1a1a1a"/>
+<link rel="canonical" href="https://talalalharbi.com/"/>
 <title>Talal Abid Alharbi — IT &amp; Cybersecurity</title>
 <meta name="description" content="Talal Abid Alharbi — final-year IT Student at King Abdulaziz University specializing in Cybersecurity. CompTIA Security+ and eJPTv2 Certified." />
 <meta name="keywords" content="Talal Abid Alharbi, Cybersecurity, Portfolio, Penetration Testing, Ethical Hacking, CompTIA Security+, eJPT, KAU" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Talal Abid Alharbi — IT &amp; Cybersecurity Portfolio" />
 <meta property="og:description" content="Final-year IT Student specializing in Cybersecurity. CompTIA Security+ and eJPTv2 Certified. Check out PhishAware and other security work." />
-<meta property="og:image" content="Clean_Logo.png" />
-<meta property="twitter:card" content="summary" />
+<meta property="og:image" content="https://talalalharbi.com/Clean_Logo.png" />
+<meta property="og:url" content="https://talalalharbi.com/" />
+<meta property="twitter:card" content="summary_large_image" />
 <meta property="twitter:title" content="Talal Abid Alharbi — IT &amp; Cybersecurity Portfolio" />
 <meta property="twitter:description" content="Final-year IT Student specializing in Cybersecurity. CompTIA Security+ and eJPTv2 Certified. Check out PhishAware and other security work." />
-<meta property="twitter:image" content="Clean_Logo.png" />
+<meta property="twitter:image" content="https://talalalharbi.com/Clean_Logo.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=JetBrains+Mono:wght@300;400;500;700&family=DM+Sans:wght@300;400;500&family=Tajawal:wght@300;400;500;700&family=Cairo:wght@400;700&display=swap" rel="stylesheet"/>
@@ -1234,6 +1237,7 @@
       <span class="skill-tag tertiary" data-i18n="skSOC">SOC Operations</span>
       <span class="skill-tag tertiary" data-i18n="skGRC">GRC</span>
       <span class="skill-tag tertiary" data-i18n="skIR">Incident Response</span>
+      <span class="skill-tag tertiary" data-i18n="skCloud">Cloud Security</span>
     </div>
   </div>
 
@@ -1253,6 +1257,8 @@
       <div class="skill-group-title" data-i18n="skGroupTools">Security Tools</div>
       <div class="skill-tags">
         <span class="skill-tag secondary">Metasploit Framework</span>
+        <span class="skill-tag secondary">Burp Suite</span>
+        <span class="skill-tag secondary">Wireshark</span>
         <span class="skill-tag secondary">Nmap</span>
         <span class="skill-tag secondary">Kali Linux</span>
       </div>
@@ -1527,7 +1533,7 @@ const i18n = {
     skEthical: 'Ethical Hacking', skThreat: 'Threat Intelligence',
     skVuln: 'Vulnerability Assessment',
     skillsLearningLabel: 'Currently Learning & Developing',
-    skSOC: 'SOC Operations', skGRC: 'GRC', skIR: 'Incident Response',
+    skSOC: 'SOC Operations', skGRC: 'GRC', skIR: 'Incident Response', skCloud: 'Cloud Security',
     skillsFoundationLabel: 'Technical Foundation — Supporting the Security Stack',
     skGroupDev: 'Development', skGroupTools: 'Security Tools', skGroupData: 'Data & Networking',
     skSQL: 'SQL & Databases', skNet: 'Network Protocols', skFW: 'Firewall & IDS/IPS',
@@ -1613,7 +1619,7 @@ const i18n = {
     skVuln: 'تقييم الثغرات',
     skillsLearningLabel: 'أتعلمها وأطورها حاليًا',
     skSOC: 'عمليات مركز SOC', skGRC: 'الحوكمة والمخاطر والامتثال',
-    skIR: 'الاستجابة للحوادث',
+    skIR: 'الاستجابة للحوادث', skCloud: 'أمن الحوسبة السحابية',
     skillsFoundationLabel: 'الأساس التقني — اللي يدعم تخصصي',
     skGroupDev: 'البرمجة', skGroupTools: 'أدوات الأمن',
     skGroupData: 'البيانات والشبكات',
@@ -2027,7 +2033,7 @@ function runSimulatedScan() {
     { text: '[████████████░░░░░░░░░░░░░░░░░░] 40% — Ports & services scan', delay: 800 },
     { text: '[██████████████████████░░░░░░░░] 73% — Sanitization check', delay: 1200 },
     { text: '[██████████████████████████████] 100% — Analysis complete', delay: 1600 },
-    { text: 'SCAN COMPLETE: 0 vulnerabilities found. Website is secure.', delay: 1900 }
+    { text: 'SCAN COMPLETE: no issues detected in surface scan.', delay: 1900 }
   ];
 
   terminalInput.disabled = true;
@@ -2035,7 +2041,7 @@ function runSimulatedScan() {
 
   steps.forEach(step => {
     setTimeout(() => {
-      appendTerminalLine(step.text, step.text.includes('0 vulnerabilities') ? 'val' : 'comment');
+      appendTerminalLine(step.text, step.text.includes('SCAN COMPLETE') ? 'val' : 'comment');
       if (step.delay === 1900) {
         terminalInput.disabled = false;
         terminalInput.placeholder = "type 'help'...";
