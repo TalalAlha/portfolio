@@ -1214,6 +1214,55 @@
   @media (min-width: 901px) { .mobile-menu { display: none; } }
   @media (hover: none) { .nav-toggle { cursor: pointer; } }
 
+  /* — Scroll progress scan-line — */
+  #scrollProgress {
+    position: fixed; top: 0; left: 0;
+    height: 2px; width: 0;
+    background: linear-gradient(90deg, var(--caramel), var(--amber), var(--gold));
+    box-shadow: 0 0 8px rgba(200,133,42,0.55);
+    z-index: 950;
+    transition: width 0.12s ease-out;
+    pointer-events: none;
+  }
+  body[dir="rtl"] #scrollProgress { left: auto; right: 0; }
+
+  /* — Active nav link (scroll-spy) — */
+  .nav-links a.active { color: var(--crema); }
+  .nav-links a.active::after { width: 100%; }
+  .mobile-menu a.active { color: var(--amber); }
+
+  /* — Magnetic buttons hint — */
+  .btn-primary, .btn-ghost { will-change: transform; }
+
+  /* — Konami easter-egg — */
+  #konami-rain {
+    position: fixed; inset: 0; z-index: 2000;
+    background: rgba(14,8,4,0.90);
+    opacity: 0; transition: opacity 0.4s ease;
+  }
+  #konami-rain.show { opacity: 1; cursor: pointer; }
+  .egg-toast {
+    position: fixed; left: 50%; top: 50%;
+    transform: translate(-50%,-50%) scale(0.9);
+    z-index: 2001;
+    font-family: var(--font-mono); font-size: 1.1rem;
+    color: var(--gold);
+    background: rgba(20,12,6,0.92);
+    border: 1px solid rgba(200,133,42,0.5);
+    border-radius: var(--radius-md);
+    padding: 1.1rem 1.9rem; text-align: center;
+    letter-spacing: 0.12em;
+    box-shadow: 0 0 45px rgba(200,133,42,0.28);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+  }
+  .egg-toast.show { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+  .egg-toast .egg-sub {
+    display: block; margin-top: 0.5rem;
+    font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em;
+  }
+  body[dir="rtl"] .egg-toast { font-family: var(--font-ar-body); letter-spacing: 0; }
+
   /* — Respect reduced-motion preference — */
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
@@ -1231,6 +1280,7 @@
 
 <a href="#hero" class="skip-link" id="skipLink" data-i18n="skipLink">Skip to content</a>
 <div id="langAnnounce" class="sr-only" aria-live="polite"></div>
+<div id="scrollProgress" aria-hidden="true"></div>
 
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
@@ -2264,6 +2314,140 @@ function runMatrixHack() {
   
   appendTerminalLine('[Matrix Hack active. Type any command or key to exit]', 'cmd');
 }
+
+/* ── Scroll progress + scroll-spy ── */
+const scrollProgress = document.getElementById('scrollProgress');
+const spyLinks = {
+  about: document.getElementById('nav-link-about'),
+  skills: document.getElementById('nav-link-skills'),
+  certs: document.getElementById('nav-link-certs'),
+  projects: document.getElementById('nav-link-projects'),
+  contact: document.getElementById('nav-link-contact'),
+};
+const mobileSpyLinks = {};
+document.querySelectorAll('#mobileMenu a').forEach(a => {
+  mobileSpyLinks[a.getAttribute('href').slice(1)] = a;
+});
+function onScrollProgress() {
+  const h = document.documentElement;
+  const max = h.scrollHeight - h.clientHeight;
+  const pct = max > 0 ? (h.scrollTop / max) * 100 : 0;
+  if (scrollProgress) scrollProgress.style.width = pct + '%';
+}
+window.addEventListener('scroll', onScrollProgress, { passive: true });
+onScrollProgress();
+
+const spyObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    const id = e.target.id;
+    Object.values(spyLinks).forEach(a => a && a.classList.remove('active'));
+    Object.values(mobileSpyLinks).forEach(a => a && a.classList.remove('active'));
+    if (spyLinks[id]) spyLinks[id].classList.add('active');
+    if (mobileSpyLinks[id]) mobileSpyLinks[id].classList.add('active');
+  });
+}, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
+['about','skills','certs','projects','contact'].forEach(id => {
+  const sec = document.getElementById(id);
+  if (sec) spyObserver.observe(sec);
+});
+
+/* ── Magnetic buttons (desktop, motion-friendly only) ── */
+if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.btn-primary, .btn-ghost').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2);
+      const dy = e.clientY - (r.top + r.height / 2);
+      btn.style.transition = 'transform 0.06s linear';
+      btn.style.transform = `translate(${dx * 0.25}px, ${dy * 0.4}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transition = 'transform 0.35s ease';
+      btn.style.transform = 'translate(0,0)';
+    });
+  });
+}
+
+/* ── Konami code easter egg ── */
+const konamiSeq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+let konamiPos = 0, eggActive = false;
+document.addEventListener('keydown', e => {
+  const key = (e.key && e.key.length === 1) ? e.key.toLowerCase() : e.key;
+  if (key === konamiSeq[konamiPos]) {
+    konamiPos++;
+    if (konamiPos === konamiSeq.length) { konamiPos = 0; triggerEgg(); }
+  } else {
+    konamiPos = (key === konamiSeq[0]) ? 1 : 0;
+  }
+});
+
+function triggerEgg() {
+  if (eggActive) return;
+  eggActive = true;
+  const isAr = document.body.dir === 'rtl';
+
+  const toast = document.createElement('div');
+  toast.className = 'egg-toast';
+  toast.setAttribute('role', 'status');
+  toast.innerHTML = isAr
+    ? '🔓 تم منح الوصول<span class="egg-sub">اكتشفت السر — خليك فضولي</span>'
+    : '🔓 ACCESS GRANTED<span class="egg-sub">you found the easter egg — stay curious</span>';
+  document.body.appendChild(toast);
+
+  let overlay = null, raf = null, timer = null, resizeFn = null;
+  const finish = () => {
+    clearTimeout(timer);
+    if (raf) cancelAnimationFrame(raf);
+    if (resizeFn) window.removeEventListener('resize', resizeFn);
+    document.removeEventListener('keydown', onKey, true);
+    toast.classList.remove('show');
+    if (overlay) overlay.classList.remove('show');
+    setTimeout(() => { toast.remove(); if (overlay) overlay.remove(); eggActive = false; }, 450);
+  };
+  const onKey = ev => { if (ev.key === 'Escape') { ev.stopPropagation(); finish(); } };
+
+  if (!reduceMotion) {
+    overlay = document.createElement('div');
+    overlay.id = 'konami-rain';
+    const canvas = document.createElement('canvas');
+    canvas.style.cssText = 'width:100%;height:100%;display:block';
+    overlay.appendChild(canvas);
+    document.body.appendChild(overlay);
+    overlay.addEventListener('click', finish);
+
+    const ctx = canvas.getContext('2d');
+    resizeFn = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; };
+    resizeFn();
+    window.addEventListener('resize', resizeFn);
+
+    const glyphs = 'アイウエオカキクケコ0123456789ABCDEF#$%&<>{}[]/talalsh';
+    const cols = Math.floor(canvas.width / 14);
+    const drops = Array(cols).fill(0).map(() => Math.floor(Math.random() * -40));
+    const drawRain = () => {
+      ctx.fillStyle = 'rgba(14,8,4,0.08)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.font = '14px monospace';
+      for (let i = 0; i < cols; i++) {
+        ctx.fillStyle = Math.random() < 0.04 ? '#F2C060' : '#C8852A';
+        ctx.fillText(glyphs[Math.floor(Math.random() * glyphs.length)], i * 14, drops[i] * 14);
+        if (drops[i] * 14 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+        drops[i]++;
+      }
+      raf = requestAnimationFrame(drawRain);
+    };
+    requestAnimationFrame(() => overlay.classList.add('show'));
+    drawRain();
+  }
+
+  requestAnimationFrame(() => toast.classList.add('show'));
+  document.addEventListener('keydown', onKey, true);
+  timer = setTimeout(finish, reduceMotion ? 2600 : 4400);
+}
+
+console.log('%c🔒 secure zone — curious minds welcome.%c\n   try the Konami code: ↑ ↑ ↓ ↓ ← → ← → B A',
+  'color:#C8852A;font-family:monospace;font-size:13px;font-weight:bold;',
+  'color:#9A8070;font-family:monospace;font-size:12px;');
 
 /* ── Boot ── */
 let initialLang = 'en';
