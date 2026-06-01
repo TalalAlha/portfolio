@@ -1341,6 +1341,7 @@
       <li><a href="#certs" data-i18n="navCerts" id="nav-link-certs">certs</a></li>
       <li><a href="#projects" data-i18n="navProjects" id="nav-link-projects">projects</a></li>
       <li><a href="#contact" data-i18n="navContact" id="nav-link-contact">contact</a></li>
+      <li><a href="Talal_Alharbi_Resume.pdf" data-i18n="navResume" id="nav-link-resume" target="_blank" rel="noopener noreferrer">résumé ↗</a></li>
     </ul>
     <button id="langToggle" class="lang-toggle" aria-label="Switch to Arabic">
       <span class="globe" aria-hidden="true"></span>
@@ -1359,6 +1360,7 @@
   <a href="#certs" data-i18n="navCerts">certs</a>
   <a href="#projects" data-i18n="navProjects">projects</a>
   <a href="#contact" data-i18n="navContact">contact</a>
+  <a href="Talal_Alharbi_Resume.pdf" data-i18n="navResume" target="_blank" rel="noopener noreferrer">résumé ↗</a>
 </div>
 
 <!-- ── HERO ── -->
@@ -1382,6 +1384,7 @@
     <div class="hero-cta">
       <a href="#projects" class="btn-primary" data-i18n="ctaPrimary" id="hero-cta-projects">View Projects</a>
       <a href="#contact" class="btn-ghost" data-i18n="ctaGhost" id="hero-cta-contact">Get In Touch</a>
+      <a href="Talal_Alharbi_Resume.pdf" class="btn-ghost" target="_blank" rel="noopener noreferrer" data-i18n="ctaResume" id="hero-cta-resume">Résumé ↗</a>
     </div>
   </div>
 
@@ -1727,12 +1730,13 @@ const i18n = {
     skipLink: 'Skip to content',
     navName: 'talal.sh',
     navAbout: 'about', navSkills: 'skills', navCerts: 'certs',
-    navProjects: 'projects', navContact: 'contact',
+    navProjects: 'projects', navContact: 'contact', navResume: 'résumé ↗',
     heroEyebrow: 'Talal Abid Alharbi',
     heroNameTop: 'Security',
     heroNameBottom: 'Practitioner',
     ctaPrimary: 'View Projects',
     ctaGhost: 'Get In Touch',
+    ctaResume: 'Résumé ↗',
     scroll: 'scroll',
     typePhrases: [
       'IT Major | Cybersecurity Focus',
@@ -1813,12 +1817,13 @@ const i18n = {
     skipLink: 'تخطَّ إلى المحتوى',
     navName: 'طلال.sh',
     navAbout: 'عني', navSkills: 'مهاراتي', navCerts: 'شهاداتي',
-    navProjects: 'أعمالي', navContact: 'تواصل',
+    navProjects: 'أعمالي', navContact: 'تواصل', navResume: 'السيرة الذاتية ↗',
     heroEyebrow: 'طلال عابد الحربي',
     heroNameTop: 'متخصص',
     heroNameBottom: 'أمن سيبراني',
     ctaPrimary: 'شوف أعمالي',
     ctaGhost: 'تواصل معي',
+    ctaResume: 'السيرة الذاتية ↗',
     scroll: 'انزل',
     typePhrases: [
       'طالب تقنية معلومات | متخصص أمن سيبراني',
@@ -2219,7 +2224,8 @@ function handleTerminalCommand(cmdText) {
       appendTerminalLine('  ls       - List the sections of this site', 'comment');
       appendTerminalLine('  open <x> - Open a project/link (phishaware, webscan, secretscanner, github, linkedin, email)', 'comment');
       appendTerminalLine('  goto <x> - Scroll to a section (about, skills, certs, projects, contact)', 'comment');
-      appendTerminalLine('  resume   - Open the print / save-as-PDF view', 'comment');
+      appendTerminalLine('  resume   - Open Talal\'s résumé (PDF) in a new tab', 'comment');
+      appendTerminalLine('  print    - Open the printable one-page view', 'comment');
       appendTerminalLine('  whoami   - Display connection security metadata', 'comment');
       appendTerminalLine('  date     - Show current date & local Jeddah time', 'comment');
       appendTerminalLine('  scan     - Run simulated vulnerability scanner on the website', 'comment');
@@ -2322,6 +2328,11 @@ function handleTerminalCommand(cmdText) {
 
     case 'resume':
     case 'cv':
+      appendTerminalLine('Opening résumé (PDF) in a new tab…', 'cmd');
+      window.open('Talal_Alharbi_Resume.pdf', '_blank', 'noopener');
+      break;
+
+    case 'print':
       appendTerminalLine('Opening print / save-as-PDF view…', 'cmd');
       setTimeout(() => window.print(), 400);
       break;
