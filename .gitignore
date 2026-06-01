@@ -1,0 +1,33 @@
+# ── Secrets / credentials (never commit these) ──
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa*
+secrets.*
+credentials.*
+*.secret
+
+# ── Dependencies / build output (if you add tooling later) ──
+node_modules/
+dist/
+build/
+.cache/
+.parcel-cache/
+
+# ── OS / editor cruft ──
+.DS_Store
+Thumbs.db
+desktop.ini
+ehthumbs.db
+*~
+.idea/
+.vscode/
+
+# ── Logs ──
+*.log
+npm-debug.log*
+yarn-error.log*
