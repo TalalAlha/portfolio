@@ -1340,8 +1340,8 @@
       <li><a href="#skills" data-i18n="navSkills" id="nav-link-skills">skills</a></li>
       <li><a href="#certs" data-i18n="navCerts" id="nav-link-certs">certs</a></li>
       <li><a href="#projects" data-i18n="navProjects" id="nav-link-projects">projects</a></li>
+      <li><a href="#resume" data-i18n="navResume" id="nav-link-resume">résumé</a></li>
       <li><a href="#contact" data-i18n="navContact" id="nav-link-contact">contact</a></li>
-      <li><a href="Talal_Alharbi_Resume.pdf" data-i18n="navResume" id="nav-link-resume" target="_blank" rel="noopener noreferrer">résumé ↗</a></li>
     </ul>
     <button id="langToggle" class="lang-toggle" aria-label="Switch to Arabic">
       <span class="globe" aria-hidden="true"></span>
@@ -1359,8 +1359,8 @@
   <a href="#skills" data-i18n="navSkills">skills</a>
   <a href="#certs" data-i18n="navCerts">certs</a>
   <a href="#projects" data-i18n="navProjects">projects</a>
+  <a href="#resume" data-i18n="navResume">résumé</a>
   <a href="#contact" data-i18n="navContact">contact</a>
-  <a href="Talal_Alharbi_Resume.pdf" data-i18n="navResume" target="_blank" rel="noopener noreferrer">résumé ↗</a>
 </div>
 
 <!-- ── HERO ── -->
@@ -1384,7 +1384,7 @@
     <div class="hero-cta">
       <a href="#projects" class="btn-primary" data-i18n="ctaPrimary" id="hero-cta-projects">View Projects</a>
       <a href="#contact" class="btn-ghost" data-i18n="ctaGhost" id="hero-cta-contact">Get In Touch</a>
-      <a href="Talal_Alharbi_Resume.pdf" class="btn-ghost" target="_blank" rel="noopener noreferrer" data-i18n="ctaResume" id="hero-cta-resume">Résumé ↗</a>
+      <a href="#resume" class="btn-ghost" data-i18n="ctaResume" id="hero-cta-resume">Résumé</a>
     </div>
   </div>
 
@@ -1645,6 +1645,21 @@
   </div>
 </section>
 
+<!-- ── RESUME ── -->
+<section id="resume">
+  <div class="section-label reveal" data-i18n="resumeLabel">Experience</div>
+  <h2 class="section-title reveal" data-i18n-html="resumeTitle">My <em>Résumé</em></h2>
+
+  <div class="resume-container reveal" style="text-align: center; max-width: 900px; margin: 0 auto;">
+    <div style="margin-bottom: 2rem;">
+      <a href="Talal_Alharbi_Resume.pdf" class="btn-primary" target="_blank" rel="noopener noreferrer" data-i18n="resumeDownload">Download PDF ↗</a>
+    </div>
+    <div class="resume-image-wrapper" style="border: 1px solid rgba(200,133,42,0.2); border-radius: var(--radius-md); overflow: hidden; background: var(--roast); padding: 1rem;">
+      <img src="Talal_Alharbi_Resume.png" alt="Talal Alharbi Resume" style="width: 100%; height: auto; border-radius: 4px; display: block;" loading="lazy">
+    </div>
+  </div>
+</section>
+
 <!-- ── CONTACT ── -->
 <section id="contact">
   <div class="section-label reveal" data-i18n="contactLabel">Connect</div>
@@ -1730,13 +1745,16 @@ const i18n = {
     skipLink: 'Skip to content',
     navName: 'talal.sh',
     navAbout: 'about', navSkills: 'skills', navCerts: 'certs',
-    navProjects: 'projects', navContact: 'contact', navResume: 'résumé ↗',
+    navProjects: 'projects', navContact: 'contact', navResume: 'résumé',
+    resumeLabel: 'Experience',
+    resumeTitle: 'My <em>Résumé</em>',
+    resumeDownload: 'Preview & Download PDF ↗',
     heroEyebrow: 'Talal Abid Alharbi',
     heroNameTop: 'Security',
     heroNameBottom: 'Practitioner',
     ctaPrimary: 'View Projects',
     ctaGhost: 'Get In Touch',
-    ctaResume: 'Résumé ↗',
+    ctaResume: 'Résumé',
     scroll: 'scroll',
     typePhrases: [
       'IT Major | Cybersecurity Focus',
@@ -1817,13 +1835,16 @@ const i18n = {
     skipLink: 'تخطَّ إلى المحتوى',
     navName: 'طلال.sh',
     navAbout: 'عني', navSkills: 'مهاراتي', navCerts: 'شهاداتي',
-    navProjects: 'أعمالي', navContact: 'تواصل', navResume: 'السيرة الذاتية ↗',
+    navProjects: 'أعمالي', navContact: 'تواصل', navResume: 'السيرة الذاتية',
+    resumeLabel: 'الخبرات',
+    resumeTitle: 'السيرة <em>الذاتية</em>',
+    resumeDownload: 'عرض وتحميل ملف PDF ↗',
     heroEyebrow: 'طلال عابد الحربي',
     heroNameTop: 'متخصص',
     heroNameBottom: 'أمن سيبراني',
     ctaPrimary: 'شوف أعمالي',
     ctaGhost: 'تواصل معي',
-    ctaResume: 'السيرة الذاتية ↗',
+    ctaResume: 'السيرة الذاتية',
     scroll: 'انزل',
     typePhrases: [
       'طالب تقنية معلومات | متخصص أمن سيبراني',
@@ -2223,8 +2244,8 @@ function handleTerminalCommand(cmdText) {
       appendTerminalLine('  contact  - Display contact links (email, LinkedIn, GitHub)', 'comment');
       appendTerminalLine('  ls       - List the sections of this site', 'comment');
       appendTerminalLine('  open <x> - Open a project/link (phishaware, webscan, secretscanner, github, linkedin, email)', 'comment');
-      appendTerminalLine('  goto <x> - Scroll to a section (about, skills, certs, projects, contact)', 'comment');
-      appendTerminalLine('  resume   - Open Talal\'s résumé (PDF) in a new tab', 'comment');
+      appendTerminalLine('  goto <x> - Scroll to a section (about, skills, certs, projects, resume, contact)', 'comment');
+      appendTerminalLine('  resume   - Scroll to Talal\'s inline résumé', 'comment');
       appendTerminalLine('  print    - Open the printable one-page view', 'comment');
       appendTerminalLine('  whoami   - Display connection security metadata', 'comment');
       appendTerminalLine('  date     - Show current date & local Jeddah time', 'comment');
@@ -2295,7 +2316,7 @@ function handleTerminalCommand(cmdText) {
       break;
 
     case 'ls':
-      appendTerminalLine('about/   skills/   certs/   projects/   contact/', 'val');
+      appendTerminalLine('about/   skills/   certs/   projects/   resume/   contact/', 'val');
       break;
 
     case 'pwd':
@@ -2328,8 +2349,8 @@ function handleTerminalCommand(cmdText) {
 
     case 'resume':
     case 'cv':
-      appendTerminalLine('Opening résumé (PDF) in a new tab…', 'cmd');
-      window.open('Talal_Alharbi_Resume.pdf', '_blank', 'noopener');
+      appendTerminalLine('Navigating to /resume…', 'cmd');
+      document.getElementById('resume').scrollIntoView({ behavior: 'smooth' });
       break;
 
     case 'print':
@@ -2359,13 +2380,13 @@ function handleTerminalCommand(cmdText) {
     case 'cd':
     case 'goto': {
       const sec = (parts[1] || '').toLowerCase().replace(/\/$/, '');
-      const valid = ['about','skills','certs','projects','contact','hero'];
+      const valid = ['about','skills','certs','projects','resume','contact','hero'];
       if (valid.includes(sec)) {
         appendTerminalLine(`Navigating to /${sec}…`, 'cmd');
         const el = document.getElementById(sec);
         if (el) el.scrollIntoView({ behavior: 'smooth' });
       } else {
-        appendTerminalLine(`${cmd}: no such section '${parts[1] || ''}'. Try: about, skills, certs, projects, contact`, 'comment');
+        appendTerminalLine(`${cmd}: no such section '${parts[1] || ''}'. Try: about, skills, certs, projects, resume, contact`, 'comment');
       }
       break;
     }
@@ -2456,6 +2477,7 @@ const spyLinks = {
   skills: document.getElementById('nav-link-skills'),
   certs: document.getElementById('nav-link-certs'),
   projects: document.getElementById('nav-link-projects'),
+  resume: document.getElementById('nav-link-resume'),
   contact: document.getElementById('nav-link-contact'),
 };
 const mobileSpyLinks = {};
@@ -2481,7 +2503,7 @@ const spyObserver = new IntersectionObserver(entries => {
     if (mobileSpyLinks[id]) mobileSpyLinks[id].classList.add('active');
   });
 }, { rootMargin: '-45% 0px -45% 0px', threshold: 0 });
-['about','skills','certs','projects','contact'].forEach(id => {
+['about','skills','certs','projects','resume','contact'].forEach(id => {
   const sec = document.getElementById(id);
   if (sec) spyObserver.observe(sec);
 });
