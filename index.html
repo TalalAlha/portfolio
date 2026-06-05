@@ -938,39 +938,132 @@
     font-size: 0.7rem;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: transparent;
+    background: rgba(200,133,42,0.04);
     color: var(--amber);
-    border: 1px solid rgba(200,133,42,0.35);
-    border-radius: 2px;
-    padding: 0.4rem 0.85rem;
+    border: 1px solid rgba(200,133,42,0.3);
+    border-radius: 20px;
+    padding: 0.4rem 0.6rem 0.4rem 0.5rem;
     cursor: none;
-    display: flex; align-items: center; gap: 0.5rem;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    display: flex; align-items: center; gap: 0.45rem;
+    transition: background 0.3s, border-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
     font-weight: 500;
+    position: relative;
+    overflow: hidden;
   }
   .lang-toggle:hover {
-    background: rgba(200,133,42,0.1);
+    background: rgba(200,133,42,0.12);
     border-color: var(--amber);
     color: var(--crema);
+    box-shadow: 0 0 12px rgba(200,133,42,0.25), 0 0 24px rgba(200,133,42,0.08);
+    transform: translateY(-1px);
   }
+  .lang-toggle:active {
+    transform: translateY(0) scale(0.97);
+  }
+  /* Tooltip */
+  .lang-toggle::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--mahogany);
+    color: var(--parchment);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    padding: 0.35rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid rgba(200,133,42,0.2);
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 1000;
+  }
+  .lang-toggle:hover::after {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* — Animated Globe — */
   .lang-toggle .globe {
-    width: 12px; height: 12px;
+    width: 16px; height: 16px;
     display: inline-block;
-    border: 1.2px solid currentColor;
+    border: 1.5px solid currentColor;
     border-radius: 50%;
     position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
   }
+  /* Vertical meridian (ellipse) */
   .lang-toggle .globe::before {
     content: '';
-    position: absolute; left: 50%; top: 0; bottom: 0;
-    width: 1.2px; background: currentColor;
+    position: absolute;
+    top: -1px; bottom: -1px;
+    left: 50%;
+    width: 8px;
+    border: 1.2px solid currentColor;
+    border-radius: 50%;
     transform: translateX(-50%);
+    background: transparent;
+    animation: globeSpin 4s linear infinite;
   }
+  /* Horizontal equator line */
   .lang-toggle .globe::after {
     content: '';
-    position: absolute; top: 50%; left: -1.2px; right: -1.2px;
-    height: 1.2px; background: currentColor;
+    position: absolute;
+    top: 50%; left: -1px; right: -1px;
+    height: 1.2px;
+    background: currentColor;
     transform: translateY(-50%);
+  }
+  @keyframes globeSpin {
+    0%   { width: 8px; opacity: 1; }
+    25%  { width: 2px; opacity: 0.7; }
+    50%  { width: 8px; opacity: 1; }
+    75%  { width: 14px; opacity: 0.7; }
+    100% { width: 8px; opacity: 1; }
+  }
+
+  /* — Dual-language labels — */
+  .lang-labels {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .lang-label {
+    transition: color 0.3s, opacity 0.3s, transform 0.35s;
+    line-height: 1;
+  }
+  .lang-label.active {
+    color: var(--crema);
+    opacity: 1;
+  }
+  .lang-label.inactive {
+    color: var(--dim);
+    opacity: 0.55;
+  }
+  .lang-label.inactive:hover {
+    opacity: 0.8;
+  }
+  .lang-divider {
+    color: rgba(200,133,42,0.3);
+    margin: 0 0.3rem;
+    font-weight: 300;
+    user-select: none;
+  }
+  /* Slide animation on switch */
+  .lang-toggle.switching .lang-label {
+    animation: langSlide 0.35s ease;
+  }
+  @keyframes langSlide {
+    0%   { transform: translateY(0); opacity: 1; }
+    40%  { transform: translateY(-6px); opacity: 0; }
+    60%  { transform: translateY(6px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
   }
 
   /* — Hero watermark shield (subtle, behind content) — */
@@ -1353,9 +1446,13 @@
       <li><a href="#resume" data-i18n="navResume" id="nav-link-resume">résumé</a></li>
       <li><a href="#contact" data-i18n="navContact" id="nav-link-contact">contact</a></li>
     </ul>
-    <button id="langToggle" class="lang-toggle" aria-label="Switch to Arabic">
+    <button id="langToggle" class="lang-toggle" aria-label="Switch to Arabic" data-tooltip="Switch to Arabic">
       <span class="globe" aria-hidden="true"></span>
-      <span id="langToggleLabel" lang="ar">عربي</span>
+      <span class="lang-labels">
+        <span class="lang-label active" data-lang="en">EN</span>
+        <span class="lang-divider" aria-hidden="true">│</span>
+        <span class="lang-label inactive" data-lang="ar" lang="ar">عربي</span>
+      </span>
     </button>
     <button id="navToggle" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
       <span></span><span></span><span></span>
@@ -1971,14 +2068,20 @@ function applyLanguage(lang) {
     glitch.setAttribute('data-text', dict.heroNameTop);
     glitch.textContent = dict.heroNameTop;
   }
-  const btnLbl = document.getElementById('langToggleLabel');
-  if (btnLbl) {
-    btnLbl.textContent = (lang === 'ar') ? 'English' : 'عربي';
-    // Label text is the *other* language's name — tag it so screen readers pronounce it correctly
-    btnLbl.lang = (lang === 'ar') ? 'en' : 'ar';
-  }
+  // Update dual-language labels (highlight active, dim inactive)
   const langBtn = document.getElementById('langToggle');
-  if (langBtn) langBtn.setAttribute('aria-label', (lang === 'ar') ? 'التبديل إلى اللغة الإنجليزية' : 'Switch to Arabic');
+  if (langBtn) {
+    const enLabel = langBtn.querySelector('.lang-label[data-lang="en"]');
+    const arLabel = langBtn.querySelector('.lang-label[data-lang="ar"]');
+    if (enLabel && arLabel) {
+      enLabel.classList.toggle('active', lang === 'en');
+      enLabel.classList.toggle('inactive', lang !== 'en');
+      arLabel.classList.toggle('active', lang === 'ar');
+      arLabel.classList.toggle('inactive', lang !== 'ar');
+    }
+    langBtn.setAttribute('aria-label', (lang === 'ar') ? 'التبديل إلى اللغة الإنجليزية' : 'التبديل إلى العربية');
+    langBtn.setAttribute('data-tooltip', (lang === 'ar') ? 'Switch to English' : 'التبديل إلى العربية');
+  }
   const announce = document.getElementById('langAnnounce');
   if (announce) announce.textContent = (lang === 'ar') ? 'تم تغيير لغة الموقع إلى العربية' : 'Site language changed to English';
 
@@ -1988,6 +2091,10 @@ function applyLanguage(lang) {
 
 document.getElementById('langToggle').addEventListener('click', () => {
   const cur = document.body.dir === 'rtl' ? 'ar' : 'en';
+  const btn = document.getElementById('langToggle');
+  // Trigger slide animation
+  btn.classList.add('switching');
+  setTimeout(() => btn.classList.remove('switching'), 400);
   applyLanguage(cur === 'ar' ? 'en' : 'ar');
 });
 
