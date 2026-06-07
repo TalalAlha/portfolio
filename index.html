@@ -1337,6 +1337,37 @@
   /* — Magnetic buttons hint — */
   .btn-primary, .btn-ghost { will-change: transform; }
 
+  /* — Page Transition Overlay — */
+  .page-transition-overlay {
+    position: fixed; inset: 0;
+    z-index: 9999;
+    background: var(--roast);
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.35s ease-in-out;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .page-transition-overlay.active {
+    opacity: 1; pointer-events: auto;
+  }
+  .page-transition-overlay .transition-icon {
+    font-family: var(--font-mono);
+    font-size: 2.5rem;
+    color: var(--amber);
+    font-weight: 700;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+  .page-transition-overlay.active .transition-icon {
+    opacity: 1;
+    transform: scale(1);
+    animation: pulseIcon 0.6s infinite alternate ease-in-out;
+  }
+  @keyframes pulseIcon {
+    from { text-shadow: 0 0 10px rgba(200,133,42,0.4); }
+    to { text-shadow: 0 0 25px rgba(200,133,42,0.9); }
+  }
+
   /* — Konami easter-egg — */
   #konami-rain {
     position: fixed; inset: 0; z-index: 2000;
@@ -1428,6 +1459,10 @@
 <div id="langAnnounce" class="sr-only" aria-live="polite"></div>
 <div id="scrollProgress" aria-hidden="true"></div>
 
+<!-- Page Transition Overlay -->
+<div id="pageTransition" class="page-transition-overlay" aria-hidden="true">
+  <div class="transition-icon">~/</div>
+</div>
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
@@ -2092,10 +2127,21 @@ function applyLanguage(lang) {
 document.getElementById('langToggle').addEventListener('click', () => {
   const cur = document.body.dir === 'rtl' ? 'ar' : 'en';
   const btn = document.getElementById('langToggle');
+  const overlay = document.getElementById('pageTransition');
+
   // Trigger slide animation
   btn.classList.add('switching');
   setTimeout(() => btn.classList.remove('switching'), 400);
-  applyLanguage(cur === 'ar' ? 'en' : 'ar');
+
+  if (overlay && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    overlay.classList.add('active');
+    setTimeout(() => {
+      applyLanguage(cur === 'ar' ? 'en' : 'ar');
+      setTimeout(() => overlay.classList.remove('active'), 200);
+    }, 350);
+  } else {
+    applyLanguage(cur === 'ar' ? 'en' : 'ar');
+  }
 });
 
 /* ── Reduced-motion preference ── */
