@@ -422,7 +422,6 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 20px rgba(192,57,43,0.15);
   }
-  .skill-tag.primary::before { content: '--'; margin-right: 0.25rem; opacity: 0.5; }
   .skill-tag.secondary {
     background: rgba(200,133,42,0.08);
     color: var(--crema);
@@ -536,14 +535,6 @@
     background: linear-gradient(135deg, rgba(200,133,42,0.04) 0%, transparent 60%);
     pointer-events: none;
   }
-  /* Scan-line hover */
-  .cert-card .scanline {
-    position: absolute; left: 0; right: 0; height: 1px;
-    background: rgba(200,133,42,0.3);
-    top: -4px;
-    transition: top 0s;
-  }
-  .cert-card:hover .scanline { animation: scan 1s linear; }
   .cert-card:hover {
     transform: translateY(-4px);
     border-color: rgba(200,133,42,0.35);
@@ -678,7 +669,7 @@
     color: var(--parchment);
     line-height: 1.8;
     margin-bottom: 2rem;
-    max-width: 680px;
+    max-width: 100%;
     position: relative; z-index: 1;
   }
   .project-feature-list {
@@ -1164,7 +1155,6 @@
   body[dir="rtl"] .skills-primary::before { content: 'التركيز الأساسي'; }
   body[dir="rtl"] .skills-learning::before { content: 'تحت التطوير'; }
   body[dir="rtl"] .skills-secondary::before { content: 'الأساسيات'; }
-  body[dir="rtl"] .skill-tag.primary::before { margin-right: 0; margin-left: 0.25rem; }
   body[dir="rtl"] .cert-icon { right: auto; left: 2rem; }
   body[dir="rtl"] .hero-watermark { right: auto; left: 6%; }
   body[dir="rtl"] .project-badges { align-items: flex-start; }
@@ -1507,6 +1497,7 @@
 
 <!-- ── HERO ── -->
 <section id="hero" tabindex="-1">
+  <div id="particle-canvas" aria-hidden="true" style="position: absolute; inset: 0; z-index: 0; pointer-events: auto;"></div>
   <div class="coffee-ring cr1"></div>
   <div class="coffee-ring cr2"></div>
   <div class="coffee-ring cr3"></div>
@@ -1646,7 +1637,7 @@
 
   <div class="certs-grid">
     <div class="cert-card reveal">
-      <div class="scanline"></div>
+
       <div class="cert-icon">🛡</div>
       <div class="cert-badge">CompTIA</div>
       <div class="cert-name">Security+</div>
@@ -1654,7 +1645,7 @@
       <a href="https://www.credly.com/badges/9ed94faa-85a3-4cde-a06f-97a0560aa53f/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-secplus">Verify Credential</a>
     </div>
     <div class="cert-card reveal">
-      <div class="scanline"></div>
+
       <div class="cert-icon">⚡</div>
       <div class="cert-badge">eLearnSecurity</div>
       <div class="cert-name">eJPT v2</div>
@@ -1667,7 +1658,7 @@
 
   <div class="certs-grid">
     <div class="cert-card planned reveal">
-      <div class="scanline"></div>
+
       <div class="cert-icon">🔍</div>
       <div class="cert-badge">INE Security</div>
       <div class="cert-name">eCIR</div>
@@ -1675,7 +1666,7 @@
       <div class="cert-planned-chip" data-i18n="certPlannedChip">Planned</div>
     </div>
     <div class="cert-card planned reveal">
-      <div class="scanline"></div>
+
       <div class="cert-icon">📋</div>
       <div class="cert-badge">ISO / IEC</div>
       <div class="cert-name">ISO 27001</div>
@@ -1901,7 +1892,6 @@ const i18n = {
     typePhrases: [
       'IT Major | Cybersecurity Focus',
       'Penetration Tester | Ethical Hacker',
-      'SOC Analyst | GRC Practitioner',
       'CompTIA Security+ | eJPTv2 Certified',
       "King Abdulaziz University '26"
     ],
@@ -1991,7 +1981,6 @@ const i18n = {
     typePhrases: [
       'طالب تقنية معلومات | متخصص أمن سيبراني',
       'مختبر اختراق | هاكر أخلاقي',
-      'محلل SOC | ممارس GRC',
       'حاصل على CompTIA Security+ و eJPTv2',
       'جامعة الملك عبدالعزيز · دفعة 2026'
     ],
@@ -2187,6 +2176,7 @@ document.querySelectorAll('a, button, .skill-tag, .cert-card, .project-featured,
     el.addEventListener('mouseenter', () => cur.classList.add('hover'));
     el.addEventListener('mouseleave', () => cur.classList.remove('hover'));
   });
+
 
 /* ── Typewriter ── */
 let typeTimeout = null;
@@ -2834,6 +2824,28 @@ applyLanguage(initialLang);
 if (!reduceMotion) {
   setTimeout(() => { if (!typeTimeout) typeTimeout = setTimeout(type, 800); }, 400);
 }
+</script>
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<script>
+  if (typeof particlesJS !== 'undefined') {
+    particlesJS('particle-canvas', {
+      "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#c8852a" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5, "random": false },
+        "size": { "value": 3, "random": true },
+        "line_linked": { "enable": true, "distance": 150, "color": "#c8852a", "opacity": 0.4, "width": 1 },
+        "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+        "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "push": { "particles_nb": 4 } }
+      },
+      "retina_detect": true
+    });
+  }
 </script>
 </body>
 </html>
