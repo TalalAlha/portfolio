@@ -485,15 +485,15 @@
 
   /* ── CERTS ── */
   #certs { border-top: 1px solid rgba(200,133,42,0.08); }
-  .certs-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-  .certs-grid.planned { grid-template-columns: 1fr 1fr; }
+  .certs-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
+  .certs-grid.planned { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   .certs-planned-label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--dim);
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    margin: 2.5rem 0 1.25rem;
+    margin: 3.5rem 0 1.25rem;
     display: flex; align-items: center; gap: 0.75rem;
   }
   .certs-planned-label::before { content: '//'; color: rgba(106,88,72,0.5); }
@@ -501,7 +501,8 @@
     background: var(--mahogany);
     border: 1px dashed rgba(200,133,42,0.15);
     opacity: 0.6;
-    flex-direction: column; align-items: flex-start; justify-content: flex-start;
+    padding: 1.5rem;
+    flex-direction: column; align-items: flex-start; justify-content: center;
   }
   .cert-card.planned .cert-badge {
     background: transparent;
@@ -549,7 +550,7 @@
     box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(200,133,42,0.05);
   }
   .cert-info {
-    display: flex; flex-direction: column; align-items: flex-start;
+    display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
     flex: 1; position: relative; z-index: 2;
   }
   .cert-image {
@@ -1703,10 +1704,10 @@
     <div class="cert-card planned reveal">
 
       <!-- Place your official downloaded badge image here: -->
-      <!-- <img class="cert-icon" src="path/to/ecir_badge.png" alt="eCIR Badge" /> -->
-      <div class="cert-badge">INE Security</div>
-      <div class="cert-name">eCIR</div>
-      <div class="cert-issuer" data-i18n="certEcirIssuer">// eLearnSecurity · Certified Incident Responder</div>
+      <!-- <img class="cert-icon" src="path/to/cysa_badge.png" alt="CySA+ Badge" /> -->
+      <div class="cert-badge">CompTIA</div>
+      <div class="cert-name">CySA+</div>
+      <div class="cert-issuer" data-i18n="certCysaIssuer">// CompTIA · Cybersecurity Analyst Certification</div>
       <div class="cert-planned-chip" data-i18n="certPlannedChip">Planned</div>
     </div>
     <div class="cert-card planned reveal">
@@ -1962,11 +1963,11 @@ const i18n = {
     skSQL: 'SQL & Databases', skNet: 'Network Protocols', skFW: 'Firewall & IDS/IPS',
     certsLabel: 'Credentials',
     certsTitle: 'Certi<em>fications</em>',
-    certSecPlusIssuer: '// CompTIA · Verified Credential',
+    certSecPlusIssuer: '// CompTIA · Security+ Certification',
     certEjptIssuer: '// eLearnSecurity · Junior Penetration Tester',
     certVerify: 'Verify Credential',
     certsPlannedLabel: 'Planned & Future Certifications',
-    certEcirIssuer: '// eLearnSecurity · Certified Incident Responder',
+    certCysaIssuer: '// CompTIA · Cybersecurity Analyst Certification',
     certIsoIssuer: '// Information Security Management Standard',
     certPlannedChip: 'Planned',
     projectsLabel: 'Work',
@@ -2054,11 +2055,11 @@ const i18n = {
     skFW: 'Firewall & IDS/IPS',
     certsLabel: 'شهاداتي',
     certsTitle: 'الشها<em>دات</em>',
-    certSecPlusIssuer: '// CompTIA · شهادة موثّقة',
+    certSecPlusIssuer: '// CompTIA · شهادة Security+',
     certEjptIssuer: '// eLearnSecurity · مختبر اختراق مبتدئ',
     certVerify: 'تحقق من الشهادة',
     certsPlannedLabel: 'شهادات أخطط لها قريبًا',
-    certEcirIssuer: '// eLearnSecurity · مختص في الاستجابة للحوادث',
+    certCysaIssuer: '// CompTIA · محلل أمن سيبراني',
     certIsoIssuer: '// ISO 27001',
     certPlannedChip: 'مخطط لها',
     projectsLabel: 'الأعمال',
