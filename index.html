@@ -485,7 +485,8 @@
 
   /* ── CERTS ── */
   #certs { border-top: 1px solid rgba(200,133,42,0.08); }
-  .certs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .certs-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  .certs-grid.planned { grid-template-columns: 1fr 1fr; }
   .certs-planned-label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
@@ -498,101 +499,137 @@
   .certs-planned-label::before { content: '//'; color: rgba(106,88,72,0.5); }
   .cert-card.planned {
     background: var(--mahogany);
-    border-color: rgba(200,133,42,0.08);
-    opacity: 0.85;
+    border: 1px dashed rgba(200,133,42,0.15);
+    opacity: 0.6;
+    flex-direction: column; align-items: flex-start; justify-content: flex-start;
   }
   .cert-card.planned .cert-badge {
     background: transparent;
     color: var(--dim);
     border: 1px solid rgba(106,88,72,0.4);
   }
-  .cert-card.planned .cert-name { color: var(--muted); }
+  .cert-card.planned .cert-name { color: var(--label); }
   .cert-planned-chip {
     display: inline-flex; align-items: center; gap: 0.35rem;
     font-family: var(--font-mono);
     font-size: 0.58rem;
-    color: var(--crema);
-    background: rgba(232,168,76,0.1);
-    border: 1px solid rgba(232,168,76,0.2);
-    border-radius: 2px;
-    padding: 0.2rem 0.5rem;
+    color: var(--amber);
+    background: transparent;
+    border: 1px dashed rgba(232,168,76,0.3);
+    border-radius: 4px;
+    padding: 0.25rem 0.6rem;
     letter-spacing: 0.1em;
     margin-top: 0.5rem;
   }
   .cert-planned-chip::before { content: '◎'; font-size: 0.5rem; }
   .cert-card {
-    background: var(--roast);
-    border: 1px solid rgba(200,133,42,0.15);
+    background: linear-gradient(145deg, var(--roast), var(--espresso));
+    border: 1px solid rgba(200,133,42,0.1);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     border-radius: var(--radius-lg);
-    padding: 2rem 2rem 1.75rem;
-    transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    padding: 2.25rem 2rem 2rem;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
     position: relative; overflow: hidden;
     cursor: none;
+    display: flex; flex-direction: row; align-items: center; justify-content: space-between; gap: 2.5rem;
+  }
+  @media (max-width: 900px) {
+    .cert-card { flex-direction: column; align-items: flex-start; gap: 2rem; }
+    .certs-grid.planned { grid-template-columns: 1fr; }
   }
   .cert-card::after {
     content: '';
     position: absolute; inset: 0;
-    background: linear-gradient(135deg, rgba(200,133,42,0.04) 0%, transparent 60%);
+    background: radial-gradient(circle at top left, rgba(200,133,42,0.05) 0%, transparent 60%);
     pointer-events: none;
   }
   .cert-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(200,133,42,0.35);
-    box-shadow: 0 12px 40px rgba(200,133,42,0.06);
+    transform: translateY(-6px);
+    border-color: rgba(200,133,42,0.4);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(200,133,42,0.05);
   }
+  .cert-info {
+    display: flex; flex-direction: column; align-items: flex-start;
+    flex: 1; position: relative; z-index: 2;
+  }
+  .cert-image {
+    flex: 0 0 33%; max-width: 340px; width: 100%;
+    position: relative; z-index: 2;
+    border-radius: 4px; overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.15);
+    box-shadow: 0 15px 30px -10px rgba(0,0,0,0.8);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s;
+  }
+  .cert-image img {
+    width: 100%; height: auto; display: block;
+    filter: brightness(0.9) contrast(1.05);
+    transition: filter 0.4s;
+  }
+  .cert-card:hover .cert-image {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 25px 45px -12px rgba(0,0,0,0.9), 0 0 20px rgba(200,133,42,0.1);
+  }
+  .cert-card:hover .cert-image img { filter: brightness(1) contrast(1.05); }
+
   .cert-badge {
     font-family: var(--font-mono);
-    font-size: 0.65rem;
-    color: var(--espresso);
-    background: var(--amber);
-    padding: 0.3rem 0.75rem;
-    border-radius: 2px;
-    letter-spacing: 0.12em;
+    font-size: 0.6rem;
+    color: var(--amber);
+    background: transparent;
+    border: 1px solid rgba(200,133,42,0.25);
+    padding: 0.25rem 0.65rem;
+    border-radius: 4px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
-    font-weight: 700;
-    display: inline-block;
-    margin-bottom: 1.2rem;
+    font-weight: 500;
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    margin-bottom: 1.25rem;
+    width: fit-content;
   }
+  .cert-badge::before { content: '•'; font-size: 0.8rem; line-height: 1; }
   .cert-name {
     font-family: var(--font-display);
-    font-size: 1.6rem;
-    font-weight: 300;
-    color: var(--cream);
+    font-size: 1.8rem;
+    font-weight: 400;
+    color: #fff;
     line-height: 1.2;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.6rem;
+    position: relative; z-index: 2;
   }
   .cert-issuer {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     color: var(--label);
-    letter-spacing: 0.1em;
-  }
-  .cert-icon {
-    position: absolute; top: 1.75rem; right: 2rem;
-    font-size: 2.2rem;
-    opacity: 0.12;
-    line-height: 1;
+    letter-spacing: 0.08em;
+    position: relative; z-index: 2;
   }
   .cert-verify {
-    display: inline-flex; align-items: center; gap: 0.4rem;
+    display: inline-flex; align-items: center; gap: 0.5rem;
     font-family: var(--font-mono);
     font-size: 0.65rem;
     color: var(--amber);
     text-decoration: none;
     letter-spacing: 0.1em;
-    margin-top: 1rem;
-    padding: 0.35rem 0.75rem;
-    border: 1px solid rgba(200,133,42,0.25);
-    border-radius: 2px;
-    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    margin-top: 1.25rem;
+    padding: 0.4rem 0.8rem;
+    border: 1px solid rgba(200,133,42,0.3);
+    border-radius: 4px;
+    transition: background 0.3s, border-color 0.3s, color 0.3s;
     position: relative; z-index: 2;
     cursor: none;
+    width: fit-content;
   }
-  .cert-verify::before { content: '↗'; font-size: 0.7rem; }
+  .cert-verify svg {
+    width: 12px; height: 12px;
+    transition: transform 0.3s;
+  }
   .cert-verify:hover {
     background: rgba(200,133,42,0.1);
-    border-color: rgba(200,133,42,0.5);
+    border-color: rgba(200,133,42,0.6);
     color: var(--crema);
+  }
+  .cert-verify:hover svg {
+    transform: translate(2px, -2px);
   }
 
   /* ── PROJECTS ── */
@@ -1155,7 +1192,7 @@
   body[dir="rtl"] .skills-primary::before { content: 'التركيز الأساسي'; }
   body[dir="rtl"] .skills-learning::before { content: 'تحت التطوير'; }
   body[dir="rtl"] .skills-secondary::before { content: 'الأساسيات'; }
-  body[dir="rtl"] .cert-icon { right: auto; left: 2rem; }
+  body[dir="rtl"] .cert-icon { right: auto; left: 1.5rem; }
   body[dir="rtl"] .hero-watermark { right: auto; left: 6%; }
   body[dir="rtl"] .project-badges { align-items: flex-start; }
 
@@ -1637,29 +1674,36 @@
 
   <div class="certs-grid">
     <div class="cert-card reveal">
-
-      <div class="cert-icon">🛡</div>
-      <div class="cert-badge">CompTIA</div>
-      <div class="cert-name">Security+</div>
-      <div class="cert-issuer" data-i18n="certSecPlusIssuer">// CompTIA · Verified Credential</div>
-      <a href="https://www.credly.com/badges/9ed94faa-85a3-4cde-a06f-97a0560aa53f/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-secplus">Verify Credential</a>
+      <div class="cert-info">
+        <div class="cert-badge">CompTIA</div>
+        <div class="cert-name">Security+</div>
+        <div class="cert-issuer" data-i18n="certSecPlusIssuer">// CompTIA · Security+ Certification</div>
+        <a href="https://www.credly.com/badges/9ed94faa-85a3-4cde-a06f-97a0560aa53f/linked_in_profile" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-secplus">Verify Credential <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+      <div class="cert-image">
+        <img src="./security+Cert.png" alt="Security+ Certificate" />
+      </div>
     </div>
     <div class="cert-card reveal">
-
-      <div class="cert-icon">⚡</div>
-      <div class="cert-badge">eLearnSecurity</div>
-      <div class="cert-name">eJPT v2</div>
-      <div class="cert-issuer" data-i18n="certEjptIssuer">// eLearnSecurity · Junior Penetration Tester</div>
-      <a href="https://certs.ine.com/21e26cbc-af6d-4f20-82ec-ba81ac5b66f6#acc.ZirLg6fq" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-ejpt">Verify Credential</a>
+      <div class="cert-info">
+        <div class="cert-badge">eLearnSecurity</div>
+        <div class="cert-name">eJPT v2</div>
+        <div class="cert-issuer" data-i18n="certEjptIssuer">// eLearnSecurity · Junior Penetration Tester</div>
+        <a href="https://certs.ine.com/21e26cbc-af6d-4f20-82ec-ba81ac5b66f6#acc.ZirLg6fq" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-ejpt">Verify Credential <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+      <div class="cert-image">
+        <img src="./eJPTCert.png" alt="eJPT Certificate" />
+      </div>
     </div>
   </div>
 
   <div class="certs-planned-label reveal" data-i18n="certsPlannedLabel">Planned &amp; Future Certifications</div>
 
-  <div class="certs-grid">
+  <div class="certs-grid planned">
     <div class="cert-card planned reveal">
 
-      <div class="cert-icon">🔍</div>
+      <!-- Place your official downloaded badge image here: -->
+      <!-- <img class="cert-icon" src="path/to/ecir_badge.png" alt="eCIR Badge" /> -->
       <div class="cert-badge">INE Security</div>
       <div class="cert-name">eCIR</div>
       <div class="cert-issuer" data-i18n="certEcirIssuer">// eLearnSecurity · Certified Incident Responder</div>
@@ -1667,7 +1711,8 @@
     </div>
     <div class="cert-card planned reveal">
 
-      <div class="cert-icon">📋</div>
+      <!-- Place your official downloaded badge image here: -->
+      <!-- <img class="cert-icon" src="path/to/iso_badge.png" alt="ISO 27001 Badge" /> -->
       <div class="cert-badge">ISO / IEC</div>
       <div class="cert-name">ISO 27001</div>
       <div class="cert-issuer" data-i18n="certIsoIssuer">// Information Security Management Standard</div>
