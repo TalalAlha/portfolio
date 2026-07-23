@@ -482,7 +482,7 @@
           <span class="prompt">&gt;</span>
           <span style="color: var(--dim); font-size:0.75rem; font-family:var(--font-mono);">email</span>
           <span class="val">
-            <a href="mailto:talalalharbi.jobs@gmail.com" class="val" id="term-link-email">talalalharbi.jobs@gmail.com</a>
+            <a href="#" class="val" id="term-link-email">[loading]</a>
             <button class="copy-btn" id="copyEmailBtn" type="button" aria-label="Copy email address" title="Copy email">⧉</button>
           </span>
         </div>
@@ -1017,18 +1017,28 @@ function appendTerminalLine(text, type = 'comment') {
   terminalBody.scrollTop = terminalBody.scrollHeight;
 }
 
-function appendTerminalHTML(htmlStr) {
+function appendTerminalLink(label, linkText, href, opts) {
+  opts = opts || {};
   const line = document.createElement('div');
   line.className = 't-line';
-  
+
   const promptSpan = document.createElement('span');
   promptSpan.className = 'prompt';
   promptSpan.textContent = '>';
-  
+
   const valSpan = document.createElement('span');
   valSpan.className = 'val';
-  valSpan.innerHTML = htmlStr;
-  
+  valSpan.appendChild(document.createTextNode(label));
+
+  const a = document.createElement('a');
+  a.href = href;
+  a.className = 'val';
+  a.textContent = linkText;
+  if (opts.target) a.target = opts.target;
+  if (opts.rel) a.rel = opts.rel;
+  if (opts.id) a.id = opts.id;
+  valSpan.appendChild(a);
+
   line.appendChild(promptSpan);
   line.appendChild(valSpan);
   terminalHistory.appendChild(line);
@@ -1069,7 +1079,7 @@ function handleTerminalCommand(cmdText) {
       break;
       
     case 'clear':
-      terminalHistory.innerHTML = '';
+      while (terminalHistory.firstChild) terminalHistory.removeChild(terminalHistory.firstChild);
       break;
       
     case 'about':
@@ -1109,9 +1119,9 @@ function handleTerminalCommand(cmdText) {
       break;
       
     case 'contact':
-      appendTerminalHTML('Email: <a href="mailto:talalalharbi.jobs@gmail.com" class="val" id="term-live-email">talalalharbi.jobs@gmail.com</a>');
-      appendTerminalHTML('LinkedIn: <a href="https://www.linkedin.com/in/talal-alharbi-b153aa370" class="val" target="_blank" rel="noopener noreferrer" id="term-live-linkedin">/in/talal-alharbi-b153aa370</a>');
-      appendTerminalHTML('GitHub: <a href="https://github.com/TalalAlha" class="val" target="_blank" rel="noopener noreferrer" id="term-live-github">@TalalAlha</a>');
+      appendTerminalLink('Email: ', getEmail(), 'mailto:' + getEmail(), { id: 'term-live-email' });
+      appendTerminalLink('LinkedIn: ', '/in/talal-alharbi-b153aa370', 'https://www.linkedin.com/in/talal-alharbi-b153aa370', { target: '_blank', rel: 'noopener noreferrer', id: 'term-live-linkedin' });
+      appendTerminalLink('GitHub: ', '@TalalAlha', 'https://github.com/TalalAlha', { target: '_blank', rel: 'noopener noreferrer', id: 'term-live-github' });
       break;
       
     case 'whoami':
@@ -1180,11 +1190,12 @@ function handleTerminalCommand(cmdText) {
         secretscanner: 'https://github.com/TalalAlha/SecretScanner.git',
         github: 'https://github.com/TalalAlha',
         linkedin: 'https://www.linkedin.com/in/talal-alharbi-b153aa370',
-        email: 'mailto:talalalharbi.jobs@gmail.com',
+        email: 'mailto:' + getEmail(),
       };
       if (links[target]) {
         appendTerminalLine(`Opening ${target}…`, 'cmd');
-        window.open(links[target], target === 'email' ? '_self' : '_blank', 'noopener');
+        const newWin = window.open(links[target], target === 'email' ? '_self' : '_blank');
+        if (newWin) newWin.opener = null;
       } else {
         appendTerminalLine(`open: unknown target '${parts[1] || ''}'. Try: phishaware, webscan, secretscanner, github, linkedin, email`, 'comment');
       }
@@ -1431,9 +1442,25 @@ function showToast(msg) {
 }
 
 /* ── Copy email to clipboard ── */
-const EMAIL = 'talalalharbi.jobs@gmail.com';
+/* ── Email obfuscation — assembled at runtime to reduce scraper harvesting ── */
+function getEmail() {
+  const user = 'talalalharbi.jobs';
+  const domain = 'gmail.com';
+  return user + '@' + domain;
+}
+
+/* Hydrate the static email placeholder after DOM is ready */
+(function hydrateEmail() {
+  const emailLink = document.getElementById('term-link-email');
+  if (emailLink) {
+    emailLink.href = 'mailto:' + getEmail();
+    emailLink.textContent = getEmail();
+  }
+})();
+
 const copyEmailBtn = document.getElementById('copyEmailBtn');
 function copyEmail() {
+  const email = getEmail();
   const done = () => {
     showToast(document.body.dir === 'rtl' ? '✓ تم نسخ الإيميل' : '✓ email copied to clipboard');
     if (copyEmailBtn) {
@@ -1444,13 +1471,13 @@ function copyEmail() {
   };
   const fallback = () => {
     const ta = document.createElement('textarea');
-    ta.value = EMAIL; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    ta.value = email; ta.style.position = 'fixed'; ta.style.opacity = '0';
     document.body.appendChild(ta); ta.focus(); ta.select();
     try { document.execCommand('copy'); done(); } catch (e) {}
     ta.remove();
   };
   if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(EMAIL).then(done).catch(fallback);
+    navigator.clipboard.writeText(email).then(done).catch(fallback);
   } else { fallback(); }
 }
 if (copyEmailBtn) copyEmailBtn.addEventListener('click', copyEmail);
