@@ -292,6 +292,11 @@
         <div class="cert-badge" data-i18n="certStepBadge">Qiyas</div>
         <div class="cert-name">STEP — 95/100</div>
         <div class="cert-issuer" data-i18n="certStepIssuer">// Standardized Test of English Proficiency</div>
+        <span class="cert-verify cert-id-trigger" id="cert-verify-step" tabindex="0" role="button" aria-label="Credential ID: 21vcKSERIF7ebE">
+          <span data-i18n="certCredId">Credential ID</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          <span class="cert-id-tooltip">Ref: 21vcKSERIF7ebE<br><small>Click to copy</small></span>
+        </span>
       </div>
     </div>
   </div>
@@ -601,6 +606,7 @@ const i18n = {
     certStepBadge: 'Qiyas',
     certStepIssuer: '// Standardized Test of English Proficiency',
     certVerify: 'Verify Credential',
+    certCredId: 'Credential ID',
     certsPlannedLabel: 'Planned & Future Certifications',
     certCysaIssuer: '// CompTIA · Cybersecurity Analyst Certification',
     certIsoIssuer: '// Information Security Management Standard',
@@ -696,6 +702,7 @@ const i18n = {
     certSecPlusIssuer: '// CompTIA · شهادة Security+',
     certEjptIssuer: '// eLearnSecurity · مختبر اختراق مبتدئ',
     certVerify: 'تحقق من الشهادة',
+    certCredId: 'الرقم المرجعي',
     certStepBadge: 'قياس',
     certStepIssuer: '// اختبار كفايات اللغة الإنجليزية',
     certsPlannedLabel: 'شهادات أخطط لها قريبًا',
@@ -1506,6 +1513,32 @@ function copyEmail() {
   } else { fallback(); }
 }
 if (copyEmailBtn) copyEmailBtn.addEventListener('click', copyEmail);
+
+/* ── Copy STEP credential ID ── */
+const stepIdBtn = document.getElementById('cert-verify-step');
+if (stepIdBtn) {
+  stepIdBtn.addEventListener('click', function() {
+    const refId = '21vcKSERIF7ebE';
+    const done = () => {
+      showToast(document.body.dir === 'rtl' ? '✓ تم نسخ الرقم المرجعي' : '✓ Credential ID copied');
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(refId).then(done).catch(() => {
+        const ta = document.createElement('textarea');
+        ta.value = refId; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try { document.execCommand('copy'); done(); } catch(e) {}
+        ta.remove();
+      });
+    } else {
+      const ta = document.createElement('textarea');
+      ta.value = refId; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.focus(); ta.select();
+      try { document.execCommand('copy'); done(); } catch(e) {}
+      ta.remove();
+    }
+  });
+}
 
 /* ── Scramble-on-hover (skill & tech tags) ── */
 if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {

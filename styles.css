@@ -1607,6 +1607,64 @@
   /* Hide in RTL (Arabic terminal output doesn't apply) */
   body[dir="rtl"] .terminal-preview { display: none; }
 
+  /* — Credential ID tooltip (STEP card) — */
+  .cert-card:has(.cert-id-trigger) {
+    overflow: visible;
+  }
+  .cert-id-trigger {
+    position: relative;
+    cursor: pointer;
+  }
+  @media (hover: none) {
+    .cert-id-trigger { cursor: pointer; }
+  }
+  .cert-id-tooltip {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    background: var(--mahogany);
+    color: var(--parchment);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.04em;
+    text-transform: none;
+    padding: 0.55rem 0.85rem;
+    border-radius: 6px;
+    border: 1px solid rgba(200,133,42,0.3);
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.6;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s, transform 0.25s;
+    z-index: 100;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+  .cert-id-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-bottom-color: rgba(200,133,42,0.3);
+  }
+  .cert-id-tooltip small {
+    color: var(--dim);
+    font-size: 0.55rem;
+  }
+  .cert-id-trigger:hover .cert-id-tooltip,
+  .cert-id-trigger:focus-visible .cert-id-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+    pointer-events: auto;
+  }
+  body[dir="rtl"] .cert-id-tooltip {
+    font-family: var(--font-mono);
+    direction: ltr;
+  }
+
   /* — Print / résumé mode — */
   @media print {
     #cursor, #cursor-ring, nav, .nav-toggle, .mobile-menu, #scrollProgress,
