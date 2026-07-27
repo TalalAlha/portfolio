@@ -293,9 +293,10 @@
         <div class="cert-name">STEP — 95/100</div>
         <div class="cert-issuer" data-i18n="certStepIssuer">// Standardized Test of English Proficiency</div>
         <span class="cert-verify cert-id-trigger" id="cert-verify-step" tabindex="0" role="button" aria-label="Credential ID: 21vcKSERIF7ebE">
-          <span data-i18n="certCredId">Credential ID</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-          <span class="cert-id-tooltip">Ref: 21vcKSERIF7ebE<br><small>Click to copy</small></span>
+          <span class="cert-id-label" data-i18n="certCredId">Credential ID</span>
+          <span class="cert-id-value">21vcKSERIF7ebE</span>
+          <svg class="cert-id-icon-reveal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          <svg class="cert-id-icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
         </span>
       </div>
     </div>
@@ -1514,13 +1515,30 @@ function copyEmail() {
 }
 if (copyEmailBtn) copyEmailBtn.addEventListener('click', copyEmail);
 
-/* ── Copy STEP credential ID ── */
+/* ── STEP credential ID toggle ── */
 const stepIdBtn = document.getElementById('cert-verify-step');
 if (stepIdBtn) {
-  stepIdBtn.addEventListener('click', function() {
+  let stepRevealed = false;
+  let stepRevertTimer = null;
+
+  function revealStepId() {
+    stepIdBtn.classList.add('revealed');
+    stepRevealed = true;
+    clearTimeout(stepRevertTimer);
+    stepRevertTimer = setTimeout(hideStepId, 4000);
+  }
+
+  function hideStepId() {
+    stepIdBtn.classList.remove('revealed');
+    stepRevealed = false;
+    clearTimeout(stepRevertTimer);
+  }
+
+  function copyStepId() {
     const refId = '21vcKSERIF7ebE';
     const done = () => {
-      showToast(document.body.dir === 'rtl' ? '✓ تم نسخ الرقم المرجعي' : '✓ Credential ID copied');
+      showToast(document.body.dir === 'rtl' ? '\u2713 \u062a\u0645 \u0646\u0633\u062e \u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u0645\u0631\u062c\u0639\u064a' : '\u2713 Credential ID copied');
+      setTimeout(hideStepId, 1200);
     };
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(refId).then(done).catch(() => {
@@ -1536,6 +1554,26 @@ if (stepIdBtn) {
       document.body.appendChild(ta); ta.focus(); ta.select();
       try { document.execCommand('copy'); done(); } catch(e) {}
       ta.remove();
+    }
+  }
+
+  stepIdBtn.addEventListener('click', () => {
+    if (!stepRevealed) {
+      revealStepId();
+    } else {
+      copyStepId();
+    }
+  });
+
+  stepIdBtn.addEventListener('mouseleave', () => {
+    if (stepRevealed) {
+      stepRevertTimer = setTimeout(hideStepId, 1500);
+    }
+  });
+
+  stepIdBtn.addEventListener('mouseenter', () => {
+    if (stepRevealed) {
+      clearTimeout(stepRevertTimer);
     }
   });
 }
