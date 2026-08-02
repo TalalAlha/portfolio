@@ -287,7 +287,7 @@
   }
 
   /* ── ABOUT ── */
-  #about { border-top: 1px solid rgba(200,133,42,0.08); }
+  #about { border-top: none; }
   .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
   .about-bio {
     font-size: 1.05rem;
@@ -324,7 +324,7 @@
   .stat-value { font-family: var(--font-display); font-size: 1.4rem; color: var(--cream); }
 
   /* ── SKILLS ── */
-  #skills { border-top: 1px solid rgba(200,133,42,0.08); }
+  #skills { border-top: none; }
   .skills-primary {
     background: var(--roast);
     border: 1px solid rgba(200,133,42,0.15);
@@ -456,7 +456,7 @@
   }
 
   /* ── CERTS ── */
-  #certs { border-top: 1px solid rgba(200,133,42,0.08); }
+  #certs { border-top: none; }
   .certs-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
   .certs-grid.planned { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
   .certs-planned-label {
@@ -609,7 +609,7 @@
   }
 
   /* ── PROJECTS ── */
-  #projects { border-top: 1px solid rgba(200,133,42,0.08); }
+  #projects { border-top: none; }
   .project-featured {
     background: var(--roast);
     border: 1px solid rgba(200,133,42,0.2);
@@ -785,7 +785,7 @@
   }
 
   /* ── CONTACT ── */
-  #contact { border-top: 1px solid rgba(200,133,42,0.08); }
+  #contact { border-top: none; }
   .contact-terminal {
     background: var(--roast);
     border: 1px solid rgba(200,133,42,0.15);
@@ -832,13 +832,8 @@
   footer {
     text-align: center;
     padding: 3rem;
-    border-top: 1px solid rgba(200,133,42,0.08);
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    color: var(--dim);
-    letter-spacing: 0.1em;
+    border-top: none;
   }
-  footer span { color: var(--amber); }
 
   .d-char {
     color: var(--amber);
@@ -1666,6 +1661,188 @@
     .project-featured, .contact-terminal, .terminal-body {
       border: 1px solid #ccc !important; background: #fff !important;
     }
+  }
+
+  /* ========================================
+     UI/UX IMPROVEMENTS
+     ======================================== */
+
+  /* — #3: Section Dividers — */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 4rem;
+    position: relative;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200,133,42,0.2), transparent);
+  }
+  .divider-glyph {
+    font-size: 0.9rem;
+    color: var(--dim);
+    padding: 0 1.25rem;
+    opacity: 0.5;
+  }
+  @media (max-width: 900px) {
+    .section-divider { padding: 0 1.5rem; }
+  }
+
+  /* — #2: About Bio Dividers — */
+  .bio-divider {
+    width: 40px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--amber), transparent);
+    margin: 0.6rem 0;
+    opacity: 0.5;
+  }
+  body[dir="rtl"] .bio-divider {
+    background: linear-gradient(270deg, var(--amber), transparent);
+  }
+
+  /* — #4: Skill tag icons — */
+  .skill-icon {
+    width: 14px;
+    height: 14px;
+    vertical-align: -2px;
+    margin-right: 0.35rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .skill-tag:hover .skill-icon { opacity: 1; }
+  body[dir="rtl"] .skill-icon { margin-right: 0; margin-left: 0.35rem; }
+
+  /* — #6: Cert Timeline Pulse — */
+  .cm-dot:not(.planned) {
+    animation: dotPulse 2.5s ease-in-out infinite;
+    box-shadow: 0 0 0 0 rgba(200,133,42,0.4);
+  }
+  @keyframes dotPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,133,42,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(200,133,42,0); }
+  }
+
+  /* — #7: Terminal body scrollbar — */
+  .terminal-body::-webkit-scrollbar { width: 4px; }
+  .terminal-body::-webkit-scrollbar-track { background: var(--espresso); }
+  .terminal-body::-webkit-scrollbar-thumb { background: var(--caramel); border-radius: 2px; }
+  .terminal-body::-webkit-scrollbar-thumb:hover { background: var(--amber); }
+  .terminal-body { scrollbar-width: thin; scrollbar-color: var(--caramel) var(--espresso); }
+
+  /* — #9: Nav sliding underline — */
+  .nav-links a.active::after {
+    width: 100%;
+    transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* — #10: Back to Top button — */
+  .back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 800;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(14,8,4,0.9);
+    border: 1px solid rgba(200,133,42,0.3);
+    color: var(--amber);
+    cursor: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.35s, transform 0.35s, border-color 0.2s, background 0.2s;
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .back-to-top:hover {
+    border-color: var(--amber);
+    background: rgba(200,133,42,0.15);
+    transform: translateY(-3px);
+  }
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+  body[dir="rtl"] .back-to-top { right: auto; left: 2rem; }
+  @media (hover: none) { .back-to-top { cursor: pointer; } }
+
+  /* — #11: Footer social icons — */
+  footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .footer-content {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--dim);
+    letter-spacing: 0.1em;
+  }
+  .footer-content span { color: var(--amber); }
+  .footer-socials {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .footer-socials a {
+    color: var(--dim);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, transform 0.2s;
+  }
+  .footer-socials a:hover {
+    color: var(--amber);
+    transform: translateY(-2px);
+  }
+  .footer-socials svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* — #12: Mobile touch polish — */
+  @media (hover: none) {
+    .btn-primary:active, .btn-ghost:active {
+      transform: scale(0.96);
+      transition: transform 0.08s;
+    }
+  }
+  @media (max-width: 480px) {
+    .terminal-body { font-size: 0.82rem; }
+    .t-line { font-size: 0.82rem; }
+  }
+
+  /* — #14: 3D Tilt on Cert Cards — */
+  .cert-card {
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+
+  /* — Resume section enhancements — */
+  .resume-image-wrapper {
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .resume-image-wrapper:hover {
+    border-color: rgba(200,133,42,0.4) !important;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4), 0 0 20px rgba(200,133,42,0.05);
   }
 
   /* — Respect reduced-motion preference — */
