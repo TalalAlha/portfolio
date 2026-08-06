@@ -4,7 +4,7 @@
 
 <h1 align="center">Talal Abid Alharbi</h1>
 <p align="center">
-  <b>Cybersecurity Practitioner | Offensive Security Enthusiast | IT Student</b>
+  <b>Security Analyst | Offensive Security Enthusiast | IT Student</b>
 </p>
 <p align="center">
   <a href="https://talalalharbi.com/" target="_blank"><img src="https://img.shields.io/badge/Website-333333?style=for-the-badge&logo=safari&logoColor=white" alt="Portfolio" /></a>

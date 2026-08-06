@@ -458,7 +458,7 @@
   /* ── CERTS ── */
   #certs { border-top: none; }
   .certs-grid { display: grid; grid-template-columns: 1fr; gap: 2.5rem; }
-  .certs-grid.planned { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .certs-grid.planned { grid-template-columns: 1fr; gap: 1.5rem; }
   .certs-planned-label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
