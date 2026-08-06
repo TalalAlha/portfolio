@@ -495,12 +495,17 @@
     margin-top: 0.5rem;
   }
   .cert-planned-chip::before { content: '◎'; font-size: 0.5rem; }
+  .cert-card.compact {
+    padding: 1.25rem 2rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
   .cert-card {
     background: linear-gradient(145deg, var(--roast), var(--espresso));
     border: 1px solid rgba(200,133,42,0.1);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
     border-radius: var(--radius-lg);
-    padding: 2.25rem 2rem 2rem;
+    padding: 1.5rem 2rem;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s;
     position: relative; overflow: hidden;
     cursor: none;
@@ -916,7 +921,7 @@
   }
   .nav-shield {
     width: 26px; height: 32px;
-    background-image: url("Clean_Logo.webp");
+    background-image: url("../img/Clean_Logo.webp");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -1072,7 +1077,7 @@
     transform: translateY(-50%);
     width: clamp(220px, 28vw, 380px);
     aspect-ratio: 191 / 255;
-    background-image: url("Clean_Logo.webp");
+    background-image: url("../img/Clean_Logo.webp");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -1599,8 +1604,11 @@
   .terminal-preview .t-warn { color: var(--crema); }
   .terminal-preview .t-amber { color: var(--amber); }
 
-  /* Hide in RTL (Arabic terminal output doesn't apply) */
-  body[dir="rtl"] .terminal-preview { display: none; }
+  /* Force LTR on terminal previews in RTL — code output is always English */
+  body[dir="rtl"] .terminal-preview {
+    direction: ltr;
+    text-align: left;
+  }
 
   /* — Credential ID toggle (STEP card) — */
   .cert-id-trigger {
@@ -1620,11 +1628,18 @@
   .cert-id-value {
     position: absolute;
     left: 0.8rem;
+    right: auto;
     opacity: 0;
     transform: translateY(4px);
     font-size: 0.65rem;
     letter-spacing: 0.06em;
     color: var(--crema);
+  }
+  body[dir="rtl"] .cert-id-value {
+    left: auto;
+    right: 0.8rem;
+    direction: ltr;
+    unicode-bidi: isolate;
   }
   .cert-id-trigger.revealed .cert-id-label {
     opacity: 0;

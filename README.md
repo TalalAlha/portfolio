@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Clean_Logo.png" alt="Talal Alharbi Logo" width="150" />
+  <img src="public/img/Clean_Logo.png" alt="Talal Alharbi Logo" width="150" />
 </p>
 
 <h1 align="center">Talal Abid Alharbi</h1>
