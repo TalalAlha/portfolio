@@ -1472,13 +1472,104 @@
       top: 12px; left: 5px; bottom: -1.5rem; right: auto; width: 1px; height: auto;
     }
   }
-  body[dir="rtl"] .cert-timeline { flex-direction: row-reverse; }
+   body[dir="rtl"] .cert-timeline { flex-direction: row-reverse; }
   body[dir="rtl"] .cert-milestone { align-items: flex-end; }
   body[dir="rtl"] .cert-milestone::before { left: -12px; right: 12px; }
   @media (max-width: 900px) {
     body[dir="rtl"] .cert-timeline { flex-direction: column; }
     body[dir="rtl"] .cert-milestone::before { right: 5px; left: auto; }
   }
+
+  /* — Cert Bridge Arc (Stackable CSAP) — */
+  .cert-bridge {
+    position: absolute;
+    /* Spans from 1st dot center to 4th dot center (of 5 milestones) */
+    left: calc(100% / 5 * 0 + 6px);
+    right: calc(100% - (100% / 5 * 3 + 6px));
+    top: 15px;
+    height: 36px;
+    pointer-events: none;
+    z-index: 3;
+  }
+  .cert-bridge::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(200,133,42,0.35);
+    border-bottom: none;
+    border-radius: 40px 40px 0 0;
+  }
+  /* Vertical legs connecting arc down to the dots */
+  .cert-bridge::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 0;
+    border-left: 1px solid rgba(200,133,42,0.35);
+    border-right: 1px solid rgba(200,133,42,0.35);
+  }
+  .cert-bridge-label {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--amber);
+    background: var(--espresso);
+    padding: 0.1rem 0.6rem;
+    border: 1px solid rgba(200,133,42,0.3);
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: auto;
+    z-index: 4;
+  }
+  .cert-bridge-label::before {
+    content: '⬡ ';
+    font-size: 0.55rem;
+  }
+  .cert-timeline {
+    position: relative;
+  }
+  /* Expand top padding to make room for the bridge */
+  .cert-timeline { padding-top: 45px; }
+
+  /* Mobile: vertical bridge on the left side */
+  @media (max-width: 900px) {
+    .cert-bridge {
+      left: -30px;
+      right: auto;
+      top: calc(6px); /* aligned with first dot */
+      bottom: calc(100% - (1.5rem * 3 + 6px));
+      width: 24px;
+      height: auto;
+      /* recalc: spans from milestone 1 to milestone 4 */
+    }
+    .cert-bridge {
+      top: 51px; /* first dot center, accounting for padding */
+      height: calc((1.5rem + 1em) * 3);
+      width: 20px;
+      left: -14px;
+    }
+    .cert-bridge::before {
+      border: 1px solid rgba(200,133,42,0.35);
+      border-right: none;
+      border-radius: 40px 0 0 40px;
+    }
+    .cert-bridge::after {
+      display: none;
+    }
+    .cert-bridge-label {
+      top: 50%;
+      left: -8px;
+      transform: translateY(-50%) rotate(-90deg);
+    }
+  }
+
+
 
   /* — Terminal Preview (project cards) — */
   .terminal-preview {

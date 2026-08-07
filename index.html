@@ -249,6 +249,9 @@
   <h2 class="section-title reveal" data-i18n-html="certsTitle">Certi<em>fications</em></h2>
 
   <div class="cert-timeline reveal" aria-hidden="true">
+    <div class="cert-bridge">
+      <span class="cert-bridge-label" data-i18n="certBridgeLabel">CSAP · Stackable · 2026 AUG</span>
+    </div>
     <div class="cert-milestone">
       <div class="cm-dot"></div>
       <div class="cm-year">2025 SEP</div>
@@ -277,6 +280,17 @@
   </div>
 
   <div class="certs-grid">
+    <div class="cert-card reveal">
+      <div class="cert-info">
+        <div class="cert-badge">CompTIA</div>
+        <div class="cert-name">CSAP</div>
+        <div class="cert-issuer" data-i18n="certCsapIssuer">// CompTIA · Security Analytics Professional (Stackable)</div>
+        <a href="https://www.credly.com/badges/a2a791b1-6844-4f06-9ebd-c7297e39f585/public_url" target="_blank" rel="noopener noreferrer" class="cert-verify" data-i18n="certVerify" id="cert-verify-csap">Verify Credential <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+      <div class="cert-image">
+        <img src="public/img/CompTIA Security Analytics Professional – CSAP certificate.webp" alt="CompTIA CSAP Certificate" loading="lazy" />
+      </div>
+    </div>
     <div class="cert-card reveal">
       <div class="cert-info">
         <div class="cert-badge">CompTIA</div>
@@ -717,6 +731,8 @@ const i18n = {
     certCredId: 'Credential ID',
     certsPlannedLabel: 'Planned & Future Certifications',
     certCysaIssuer: '// CompTIA · Cybersecurity Analyst Certification',
+    certCsapIssuer: '// CompTIA · Security Analytics Professional (Stackable)',
+    certBridgeLabel: 'CSAP · Stackable · 2026 AUG',
     certIsoIssuer: '// Information Security Management Standard',
     certPlannedChip: 'Planned',
     projectsLabel: 'Work',
@@ -833,6 +849,8 @@ const i18n = {
     certStepIssuer: '// اختبار كفايات اللغة الإنجليزية',
     certsPlannedLabel: 'شهادات أخطط لها قريبًا',
     certCysaIssuer: '// CompTIA · محلل أمن سيبراني',
+    certCsapIssuer: '// CompTIA · محلل أمن تحليلي محترف (شهادة تراكمية)',
+    certBridgeLabel: 'CSAP · Stackable · 2026 AUG',
     certIsoIssuer: '// ISO 27001',
     certPlannedChip: 'مخطط لها',
     projectsLabel: 'الأعمال',
@@ -1271,8 +1289,9 @@ function handleTerminalCommand(cmdText) {
       
     case 'certs':
       appendTerminalLine('CompTIA Security+   [ Verified / Active ]', 'val');
+      appendTerminalLine('CompTIA CySA+       [ Verified / Active ]', 'val');
+      appendTerminalLine('CompTIA CSAP        [ Stackable: Security+ + CySA+ ]', 'val');
       appendTerminalLine('eJPT v2             [ Junior Penetration Tester / Active ]', 'val');
-      appendTerminalLine('eCIR                [ Planned ]', 'comment');
       appendTerminalLine('ISO 27001           [ Planned ]', 'comment');
       break;
       
