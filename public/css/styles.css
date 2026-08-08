@@ -1471,12 +1471,14 @@
   .cm-name.planned { color: var(--label); }
   @media (max-width: 900px) {
     .cert-timeline-wrapper { overflow-x: visible; padding-bottom: 0; margin-bottom: 2rem; }
-    .cert-timeline { flex-direction: column; gap: 1.5rem; min-width: auto; }
+    .cert-timeline { display: block; min-width: auto; }
+    .cert-milestone { margin-bottom: 1.5rem; height: 5rem; }
+    .cert-milestone:last-child { margin-bottom: 0; }
     .cert-milestone::before {
       top: 12px; left: 5px; bottom: -1.5rem; right: auto; width: 1px; height: auto;
     }
   }
-   body[dir="rtl"] .cert-timeline { flex-direction: row-reverse; }
+  body[dir="rtl"] .cert-timeline { flex-direction: row-reverse; }
   body[dir="rtl"] .cert-milestone { align-items: flex-end; }
   body[dir="rtl"] .cert-milestone::before { left: -12px; right: 12px; }
   @media (max-width: 900px) {
@@ -1545,32 +1547,12 @@
   /* Mobile: vertical bridge on the left side */
   @media (max-width: 900px) {
     .cert-bridge {
-      left: -30px;
-      right: auto;
-      top: calc(6px); /* aligned with first dot */
-      bottom: calc(100% - (1.5rem * 3 + 6px));
-      width: 24px;
-      height: auto;
-      /* recalc: spans from milestone 1 to milestone 4 */
+      display: none !important;
     }
-    .cert-bridge {
-      top: 51px; /* first dot center, accounting for padding */
-      height: calc((1.5rem + 1em) * 3);
-      width: 20px;
-      left: -14px;
-    }
-    .cert-bridge::before {
-      border: 1px solid rgba(200,133,42,0.35);
-      border-right: none;
-      border-radius: 40px 0 0 40px;
-    }
-    .cert-bridge::after {
-      display: none;
-    }
-    .cert-bridge-label {
-      top: 50%;
-      left: -8px;
-      transform: translateY(-50%) rotate(-90deg);
+    
+    /* RTL mobile timeline alignment */
+    body[dir="rtl"] .cert-milestone {
+      align-items: flex-start; /* Keep dots on the right side in RTL column */
     }
   }
 
